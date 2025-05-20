@@ -1,1 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+  --color-primary: #4a90e2;
+  --color-secondary: #50e3c2;
+  --color-tertiary: #9013fe;
+  --color-quaternary: #f5a623;
+  --color-quinary: #d0021b;
+  --color-senary: #7ed321;
+  --color-septenary: #f8e71c;
+  --color-octonary: #bd10e0;
+  --color-nonary: #4a4a4a;
+  --color-decimal: #9b9b9b;
+  --color-11th: #f8f8f8;
+  --color-12th: #ffffff;
+
+  --font-family-sans-serif: 'Helvetica Neue', Arial, sans-serif;
+  --font-family-serif: 'Georgia', serif;
+
+  --font-size-small: 12px;
+  --font-size-medium: 16px;
+  --font-size-large: 20px;
+
+  --line-height-small: 1.2;
+  --line-height-medium: 1.5;
+  --line-height-large: 1.75;
+
+  font-size: var(--font-size-medium);
+}
+
+body {
+  font-family: var(--font-family-sans-serif), serif;
+  line-height: var(--line-height-medium);
+  color: var(--color-nonary);
+  background-color: var(--color-12th);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+}

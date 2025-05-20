@@ -1,0 +1,77 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.80);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-logo {
+  width: 100%;
+  height: 64px;
+  margin: auto;
+}
+
+.loading-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 32px 28px 32px;
+  border-radius: 1.25rem;
+  background: rgba(30, 41, 59, 0.92);
+  box-shadow: 0 6px 32px #0005;
+}
+
+.spinner {
+  width: 64px;
+  height: 64px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+  color: #38bdf8;
+  display: block;
+}
+
+.spinner-bg {
+  opacity: 0.18;
+  stroke: #bae6fd;
+}
+
+.spinner-fg {
+  opacity: 0.88;
+  fill: #fbbf24;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  color: #f1f5f9;
+  font-size: 1.18rem;
+  margin-top: 2px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .loading-center {
+    padding: 20px 8px 18px 8px;
+    border-radius: 1rem;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 14px;
+  }
+
+  .loading-text {
+    font-size: 1rem;
+  }
+}

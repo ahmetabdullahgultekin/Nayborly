@@ -1,1 +1,14 @@
-<p>view-post works!</p>
+<section class="listing-detail-section p-4 max-w-xl mx-auto">
+  <section class="p-4 max-w-xl mx-auto">
+    <a class="text-primary underline" routerLink="/listings">← back to listings</a>
+    <ng-container *ngIf="loading.loading">
+      <app-loading></app-loading>
+    </ng-container>
+
+    <ng-template *ngIf="!loading.loading">
+      <h1 class="text-3xl font-bold mb-2">{{ listing()?.title }}</h1>
+      <p class="mb-4">{{ listing()?.description }}</p>
+      <button class="px-4 py-2 bg-primary text-white rounded" routerLink="edit">Edit</button>
+    </ng-template>
+  </section>
+</section>

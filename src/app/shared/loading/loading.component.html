@@ -1,1 +1,15 @@
-<p>loading works!</p>
+<ng-container *ngIf="svc.loading()">
+  <div class="backdrop">
+    <div class="loading-center">
+      <img alt="Nayborly" class="loading-logo" height="100" ngSrc="/favicon.svg" width="100">
+      <svg aria-label="Loading" class="spinner" fill="none"
+           role="status" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <circle class="spinner-bg" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="spinner-fg" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" fill="currentColor"></path>
+      </svg>
+      <div class="loading-text">
+        Loading, please wait...
+      </div>
+    </div>
+  </div>
+</ng-container>

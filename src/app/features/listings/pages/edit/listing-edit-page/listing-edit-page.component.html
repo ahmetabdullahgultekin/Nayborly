@@ -1,1 +1,18 @@
-<p>listing-edit-page works!</p>
+<section class="edit-listing-section p-4 max-w-xl mx-auto space-y-4">
+  <section class="p-4 max-w-xl mx-auto space-y-4">
+    <h1 class="text-2xl font-bold">Edit listing</h1>
+
+    <form #f="ngForm" (ngSubmit)="save()" class="space-y-4">
+      <label class="block">
+        <span class="block text-sm font-medium">Title</span>
+        <input [(ngModel)]="model.title" class="mt-1 p-2 border rounded w-full" name="title" required/>
+      </label>
+      <label class="block">
+        <span class="block text-sm font-medium">Description</span>
+        <textarea [(ngModel)]="model.description" class="mt-1 p-2 border rounded w-full" name="description"
+                  rows="4"></textarea>
+      </label>
+      <button class="px-4 py-2 bg-primary text-white rounded" type="submit">Save</button>
+    </form>
+  </section>
+</section>

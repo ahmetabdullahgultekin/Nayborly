@@ -1,1 +1,35 @@
-<p>navbar works!</p>
+<header class="navbar">
+  <div class="navbar-container">
+    <a (click)="closeMenu()" class="navbar-logo" routerLink="/">
+      Nayborly
+    </a>
+    <button
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen"
+      [attr.aria-label]="menuOpen ? 'Close menu' : 'Open menu'"
+      [class.active]="menuOpen"
+      class="navbar-toggle"
+      type="button"
+    >
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <nav [class.active]="menuOpen" class="navbar-links">
+      <ul>
+        <li><a (click)="closeMenu()" routerLink="/">Home</a></li>
+        <li><a (click)="closeMenu()" routerLink="/listings">Listings</a></li>
+        <li><a (click)="closeMenu()" routerLink="/post">Post</a></li>
+        <li><a (click)="closeMenu()" routerLink="/about">About</a></li>
+        <li class="desktop-only"><a (click)="closeMenu()" routerLink="/login">Login</a></li>
+        <li class="desktop-only"><a (click)="closeMenu()" routerLink="/signup">Sign Up</a></li>
+        <li class="mobile-only profile-link"><a (click)="closeMenu()" routerLink="/profile">Profile</a></li>
+      </ul>
+    </nav>
+    <div class="navbar-auth desktop-only">
+      <a class="navbar-profile" routerLink="/profile" title="Your Profile">
+        <img alt="Profile" height="32" ngSrc="/favicon.svg" width="32"/>
+      </a>
+    </div>
+  </div>
+</header>

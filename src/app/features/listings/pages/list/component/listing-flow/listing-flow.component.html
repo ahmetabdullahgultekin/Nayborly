@@ -1,0 +1,13 @@
+<section class="listings-section p-4 max-w-4xl mx-auto">
+  <section class="p-4 max-w-4xl mx-auto">
+    <h1 class="text-2xl font-bold mb-4">Neighbour Listings</h1>
+    <div *ngIf="loadingService.loading">
+      <app-loading></app-loading>
+    </div>
+    <ul *ngIf="loadingService.loading" class="space-y-2">
+      <li *ngFor="let item of listings()" class="border p-2 rounded shadow-sm hover:shadow">
+        <a [routerLink]="item.id" class="underline text-primary">{{ item.title }}</a>
+      </li>
+    </ul>
+  </section>
+</section>
