@@ -1,1 +1,78 @@
-<p>edit-post works!</p>
+<!-- Professional, animated, and modern Edit Listing Page -->
+<section class="edit-listing-hero">
+  <h1 class="edit-listing-title">Edit Listing</h1>
+  <p class="edit-listing-subtitle">Update your listing details below. Make sure your information is accurate and
+    engaging!</p>
+</section>
+<section class="edit-listing-main">
+  <form (ngSubmit)="onSubmit()" [formGroup]="editForm" autocomplete="off" class="edit-listing-form" novalidate>
+    <div class="form-group required">
+      <label for="title">Title</label>
+      <input class="form-control" formControlName="title" id="title" placeholder="Enter listing title" type="text"/>
+      <div *ngIf="editForm.get('title')?.invalid && (editForm.get('title')?.dirty || editForm.get('title')?.touched)"
+           class="error-message">
+        <small *ngIf="editForm.get('title')?.errors?.['required']">Title is required.</small>
+        <small *ngIf="editForm.get('title')?.errors?.['minlength']">Title must be at least 3 characters long.</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" formControlName="description" id="description"
+                placeholder="Enter listing description"></textarea>
+      <div
+        *ngIf="editForm.get('description')?.invalid && (editForm.get('description')?.dirty || editForm.get('description')?.touched)"
+        class="error-message">
+        <small *ngIf="editForm.get('description')?.errors?.['required']">Description is required.</small>
+        <small *ngIf="editForm.get('description')?.errors?.['minlength']">Description must be at least 10 characters
+          long.</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select class="form-control" formControlName="category" id="category">
+        <option value="">Select a category</option>
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
+      <div
+        *ngIf="editForm.get('category')?.invalid && (editForm.get('category')?.dirty || editForm.get('category')?.touched)"
+        class="error-message">
+        <small *ngIf="editForm.get('category')?.errors?.['required']">Category is required.</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="imageUrl">Image URL</label>
+      <input class="form-control" formControlName="imageUrl" id="imageUrl" placeholder="Enter image URL" type="text"/>
+      <div
+        *ngIf="editForm.get('imageUrl')?.invalid && (editForm.get('imageUrl')?.dirty || editForm.get('imageUrl')?.touched)"
+        class="error-message">
+        <small *ngIf="editForm.get('imageUrl')?.errors?.['required']">Image URL is required.</small>
+        <small *ngIf="editForm.get('imageUrl')?.errors?.['pattern']">Invalid URL format.</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="status">Status</label>
+      <select class="form-control" formControlName="status" id="status">
+        <option value="">Select a status</option>
+        <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+      </select>
+      <div *ngIf="editForm.get('status')?.invalid && (editForm.get('status')?.dirty || editForm.get('status')?.touched)"
+           class="error-message">
+        <small *ngIf="editForm.get('status')?.errors?.['required']">Status is required.</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <button [disabled]="editForm.invalid" class="btn btn-primary" type="submit">Update Listing</button>
+      <button (click)="onCancel()" class="btn btn-secondary" type="button">Cancel</button>
+    </div>
+  </form>
+  <div *ngIf="loadingService.loading" class="loading-overlay">
+    <app-loading></app-loading>
+  </div>
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+  <div *ngIf="success" class="success-message">
+    <p>Listing updated successfully!</p>
+  </div>
+</section>
+

@@ -1,6 +1,6 @@
 import {Component, inject, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {NgForOf, NgIf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {environment} from '../../../../../../../environments/environment';
 import {LoadingComponent} from '../../../../../../shared/loading/loading.component';
@@ -12,7 +12,8 @@ import {LoadingService} from '../../../../../../core/services/loading.service';
     NgIf,
     NgForOf,
     RouterLink,
-    LoadingComponent
+    LoadingComponent,
+    DatePipe
   ],
   templateUrl: './listing-flow.component.html',
   standalone: true,

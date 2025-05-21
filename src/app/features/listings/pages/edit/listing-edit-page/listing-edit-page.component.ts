@@ -4,11 +4,12 @@ import {FormsModule} from '@angular/forms';
 import {Router, RouterModule} from '@angular/router';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {environment} from '../../../../../../environments/environment';
+import {EditPostComponent} from '../component/edit-post/edit-post.component';
 
 @Component({
   selector: 'app-listing-edit-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, RouterModule, HttpClientModule, EditPostComponent],
   templateUrl: './listing-edit-page.component.html',
 })
 export class ListingEditPageComponent {

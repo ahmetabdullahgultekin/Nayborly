@@ -2,7 +2,7 @@ import {Component, inject, signal} from '@angular/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {LoadingComponent} from '../../../../../../shared/loading/loading.component';
-import {NgIf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {environment} from '../../../../../../../environments/environment';
 import {LoadingService} from '../../../../../../core/services/loading.service';
 
@@ -13,6 +13,8 @@ import {LoadingService} from '../../../../../../core/services/loading.service';
     LoadingComponent,
     NgIf,
     RouterLink,
+    NgForOf,
+    DatePipe,
   ],
   templateUrl: './view-post.component.html',
   standalone: true,

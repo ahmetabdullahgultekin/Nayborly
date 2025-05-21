@@ -1,14 +1,55 @@
-<section class="listing-detail-section p-4 max-w-xl mx-auto">
-  <section class="p-4 max-w-xl mx-auto">
-    <a class="text-primary underline" routerLink="/listings">← back to listings</a>
-    <ng-container *ngIf="loading.loading">
-      <app-loading></app-loading>
-    </ng-container>
-
-    <ng-template *ngIf="!loading.loading">
-      <h1 class="text-3xl font-bold mb-2">{{ listing()?.title }}</h1>
-      <p class="mb-4">{{ listing()?.description }}</p>
-      <button class="px-4 py-2 bg-primary text-white rounded" routerLink="edit">Edit</button>
+<!-- Professional, animated, and detailed Listing Detail Page -->
+<section class="listing-detail-hero">
+  <a class="back-link" routerLink="/listings">← Back to Listings</a>
+  <div class="listing-hero-img-wrapper">
+    <img *ngIf="listing()?.imageUrl; else placeholderImg" [src]="listing()?.imageUrl" alt="Listing Image"
+         class="listing-hero-img"/>
+    <ng-template #placeholderImg>
+      <div class="listing-hero-img placeholder">No Image</div>
     </ng-template>
-  </section>
+    <div class="listing-hero-meta">
+      <span *ngIf="listing()?.status" class="badge">{{ listing()?.status }}</span>
+      <span class="badge badge-category">{{ listing()?.category || 'General' }}</span>
+      <span class="badge badge-date">{{ listing()?.date | date:'mediumDate' }}</span>
+      <span class="badge badge-location">{{ listing()?.location || 'Unknown' }}</span>
+    </div>
+  </div>
 </section>
+
+<section class="listing-detail-main">
+  <div class="listing-detail-content">
+    <h1 class="listing-title">{{ listing()?.title }}</h1>
+    <p class="listing-description">{{ listing()?.description }}</p>
+    <div class="listing-actions">
+      <button class="btn-primary" routerLink="edit">Edit</button>
+      <button class="btn-secondary">Share</button>
+      <button class="btn-secondary">Favorite</button>
+      <button class="btn-danger">Report</button>
+    </div>
+    <div *ngIf="listing()?.tags?.length" class="listing-tags">
+      <span *ngFor="let tag of listing()?.tags" class="tag">#{{ tag }}</span>
+    </div>
+  </div>
+  <aside class="listing-detail-sidebar">
+    <div class="poster-card">
+      <img [src]="listing()?.poster?.avatar || '/assets/avatar-placeholder.png'" alt="Poster Avatar"
+           class="poster-avatar"/>
+      <div class="poster-info">
+        <h3>{{ listing()?.poster?.name || 'Anonymous' }}</h3>
+        <p class="poster-role">{{ listing()?.poster?.role || 'Member' }}</p>
+        <button class="btn-contact">Contact</button>
+      </div>
+    </div>
+    <div class="related-listings">
+      <h4>Similar Listings</h4>
+      <ul>
+        <li *ngFor="let related of listing()?.relatedListings || []">
+          <a [routerLink]="['/listings', related.id]">{{ related.title }}</a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+</section>
+<ng-container *ngIf="loading.loading">
+  <app-loading></app-loading>
+</ng-container>

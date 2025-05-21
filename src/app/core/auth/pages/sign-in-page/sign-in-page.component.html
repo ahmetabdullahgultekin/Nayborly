@@ -1,0 +1,66 @@
+<!-- Professional, modern sign-in form with validation, icons, and error/loading states -->
+<div class="sign-in-container">
+  <div class="sign-in-card">
+    <h1 class="sign-in-title">Sign In</h1>
+    <form (ngSubmit)="onSubmit()" [formGroup]="signInForm" autocomplete="off" novalidate>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-icon-group">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+          <input [class.invalid]="email?.invalid && (email?.touched || email?.dirty)" formControlName="email" id="email"
+                 placeholder="Enter your email"
+                 type="email"/>
+        </div>
+        <div *ngIf="email?.invalid && (email?.touched || email?.dirty)" class="error-message">
+          <span *ngIf="email?.errors?.['required']">Email is required.</span>
+          <span *ngIf="email?.errors?.['email']">Enter a valid email address.</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-icon-group">
+          <fa-icon [icon]="faLock"></fa-icon>
+          <input [class.invalid]="password?.invalid && (password?.touched || password?.dirty)"
+                 [type]="hidePassword ? 'password' : 'text'" formControlName="password"
+                 id="password"
+                 placeholder="Enter your password"/>
+          <button (click)="hidePassword = !hidePassword" aria-label="Toggle password visibility" class="toggle-password"
+                  type="button">
+            <span *ngIf="hidePassword">👁️</span>
+            <span *ngIf="!hidePassword">🙈</span>
+          </button>
+        </div>
+        <div *ngIf="password?.invalid && (password?.touched || password?.dirty)" class="error-message">
+          <span *ngIf="password?.errors?.['required']">Password is required.</span>
+          <span *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters.</span>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button [disabled]="loading" class="sign-in-btn" type="submit">
+          <fa-icon *ngIf="loading" [icon]="faEnvelope"></fa-icon>
+          <span *ngIf="!loading">Sign In</span>
+        </button>
+        <div class="forgot-password">
+          <a routerLink="/auth/forgot-password">Forgot Password?</a>
+        </div>
+        <div class="sign-up">
+          <span>Don't have an account?</span>
+          <a routerLink="/auth/sign-up">Sign Up</a>
+        </div>
+      </div>
+      <div class="social-login">
+        <button (click)="signInWithGoogle()" class="google-btn" type="button">
+          <fa-icon [icon]="faGoogle"></fa-icon>
+          Sign in with Google
+        </button>
+        <button (click)="signInWithFacebook()" class="facebook-btn" type="button">
+          <fa-icon [icon]="faFacebook"></fa-icon>
+          Sign in with Facebook
+        </button>
+      </div>
+    </form>
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+  </div>
+</div>

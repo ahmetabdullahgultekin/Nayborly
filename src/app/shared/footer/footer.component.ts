@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {faInstagram, faLinkedin, faGithub} from '@fortawesome/free-brands-svg-icons';
+import {faGithub, faInstagram, faLinkedin} from '@fortawesome/free-brands-svg-icons';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-footer',
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, RouterLink],
   templateUrl: './footer.component.html',
   standalone: true,
   styleUrl: './footer.component.css'

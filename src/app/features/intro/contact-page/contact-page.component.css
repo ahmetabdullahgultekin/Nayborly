@@ -1,0 +1,252 @@
+/* Professional, modern, and animated Contact Page styles */
+.contact-hero {
+  background: linear-gradient(135deg, #e0ecff 0%, #f5f7fa 100%);
+  padding: 48px 0 32px 0;
+  text-align: center;
+  animation: fadeInDown 0.8s;
+}
+
+.contact-hero-content h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #2d3748;
+  margin-bottom: 12px;
+}
+
+.contact-hero-content .lead {
+  font-size: 1.25rem;
+  color: #4a5568;
+  margin-bottom: 0;
+}
+
+.contact-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  margin: 40px 0 24px 0;
+  align-items: flex-start;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-width: 220px;
+  animation: fadeIn 1.2s;
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(60, 72, 88, 0.10);
+  padding: 18px 22px;
+  gap: 18px;
+  min-width: 200px;
+  opacity: 0;
+  animation: fadeInLeft 1s forwards;
+}
+
+.contact-info-item.fade-in {
+  opacity: 1;
+}
+
+.contact-icon {
+  font-size: 2rem;
+  color: #3182ce;
+  flex-shrink: 0;
+}
+
+.contact-info-item h3 {
+  margin: 0 0 2px 0;
+  font-size: 1.08rem;
+  color: #2d3748;
+}
+
+.contact-info-item a, .contact-info-item p {
+  color: #4a5568;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.contact-info-item a:hover {
+  color: #3182ce;
+  text-decoration: underline;
+}
+
+.contact-form-card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(60, 72, 88, 0.10);
+  padding: 32px 28px 24px 28px;
+  min-width: 320px;
+  max-width: 400px;
+  width: 100%;
+  animation: slideInUp 1.2s;
+}
+
+.contact-form-card h2 {
+  color: #3182ce;
+  font-size: 1.3rem;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.form-row {
+  margin-bottom: 18px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: #2d3748;
+  background: #f7fafc;
+  transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus {
+  border-color: #3182ce;
+  outline: none;
+}
+
+.contact-submit-btn {
+  width: 100%;
+  padding: 0.75rem 0;
+  background: #3182ce;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  position: relative;
+}
+
+.contact-submit-btn:hover {
+  background: #2563eb;
+}
+
+.contact-social {
+  margin: 48px 0 32px 0;
+  text-align: center;
+  animation: fadeInUp 1.5s;
+}
+
+.contact-social h2 {
+  color: #3182ce;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.contact-social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 18px;
+}
+
+.social-icon {
+  font-size: 2.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #e6f0fa;
+  color: #3182ce;
+  box-shadow: 0 2px 8px rgba(49, 130, 206, 0.07);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  animation: bounce 1.2s infinite alternate;
+}
+
+.social-icon:hover {
+  background: #3182ce;
+  color: #fff;
+  transform: scale(1.12) translateY(-4px);
+}
+
+@media (max-width: 900px) {
+  .contact-main {
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .contact-form-card, .contact-info {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-8px);
+  }
+}
+

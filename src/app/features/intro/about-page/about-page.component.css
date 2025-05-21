@@ -1,0 +1,222 @@
+/* Professional, modern, and animated About Page styles */
+.about-hero {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 48px 0 32px 0;
+  text-align: center;
+  animation: fadeInDown 0.8s;
+}
+
+.about-hero-content h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #2d3748;
+  margin-bottom: 12px;
+}
+
+.about-hero-content .lead {
+  font-size: 1.25rem;
+  color: #4a5568;
+  margin-bottom: 0;
+}
+
+.about-mission-vision {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+  margin: 40px 0 24px 0;
+  animation: fadeIn 1.2s;
+}
+
+.about-mission, .about-vision {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(60, 72, 88, 0.10);
+  padding: 32px 24px;
+  max-width: 400px;
+  flex: 1 1 320px;
+  min-width: 260px;
+}
+
+.about-mission h2, .about-vision h2 {
+  color: #3182ce;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.about-values {
+  margin: 40px 0 24px 0;
+  text-align: center;
+  animation: fadeIn 1.5s;
+}
+
+.values-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 600px;
+  text-align: left;
+}
+
+.values-list li {
+  margin-bottom: 12px;
+  font-size: 1.08rem;
+  color: #2d3748;
+  padding-left: 1.2em;
+  position: relative;
+}
+
+.values-list li:before {
+  content: '✔';
+  color: #38a169;
+  position: absolute;
+  left: 0;
+}
+
+.about-team {
+  margin: 48px 0 32px 0;
+  text-align: center;
+  animation: fadeInUp 1.2s;
+}
+
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.team-member {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(60, 72, 88, 0.10);
+  padding: 24px 18px 18px 18px;
+  width: 220px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: fadeIn 1.7s;
+}
+
+.team-member:hover {
+  transform: translateY(-8px) scale(1.04);
+  box-shadow: 0 8px 32px rgba(49, 130, 206, 0.18);
+}
+
+.team-member img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  object-fit: cover;
+  border: 2px solid #3182ce;
+}
+
+.team-member h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 8px 0 2px 0;
+  color: #2d3748;
+}
+
+.team-member p {
+  color: #4a5568;
+  font-size: 0.98rem;
+}
+
+.about-tech {
+  margin: 40px 0 24px 0;
+  text-align: center;
+  animation: fadeIn 2s;
+}
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+  margin-top: 18px;
+  list-style: none;
+  padding: 0;
+}
+
+.tech-list li {
+  background: #e6f0fa;
+  color: #3182ce;
+  border-radius: 0.5em;
+  padding: 8px 18px;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(49, 130, 206, 0.07);
+  transition: background 0.2s, color 0.2s;
+}
+
+.tech-list li:hover {
+  background: #3182ce;
+  color: #fff;
+}
+
+.about-contact-cta {
+  margin: 48px 0 32px 0;
+  text-align: center;
+  animation: fadeInUp 2.2s;
+}
+
+.about-contact-cta h2 {
+  color: #3182ce;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.about-contact-cta a {
+  color: #3182ce;
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.about-contact-cta a:hover {
+  color: #2b6cb0;
+}
+
+@media (max-width: 900px) {
+  .about-mission-vision {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .team-grid {
+    flex-direction: column;
+    gap: 18px;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

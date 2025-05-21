@@ -62,3 +62,376 @@ section.listings-section a:hover {
   color: #f59e42;
   text-decoration-thickness: 2px;
 }
+
+/* Professional, modern, and animated Listing Flow Page styles */
+.listings-hero {
+  background: linear-gradient(90deg, #e0ecff 0%, #f5f7fa 100%);
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 24px #0001;
+  max-width: 900px;
+  margin: 36px auto 0 auto;
+  padding: 36px 32px 28px 32px;
+  text-align: center;
+  animation: fadeInDown 1s;
+}
+
+.listings-title {
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: #2563eb;
+  margin-bottom: 8px;
+  letter-spacing: -1px;
+}
+
+.listings-subtitle {
+  color: #475569;
+  font-size: 1.18rem;
+  margin-bottom: 24px;
+}
+
+.listings-search-bar {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  padding: 12px 18px;
+  border-radius: 0.7rem;
+  border: 1px solid #cbd5e1;
+  font-size: 1.08rem;
+  min-width: 220px;
+  background: #f7fafc;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+
+.search-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 0.7rem;
+  padding: 12px 18px;
+  font-size: 1.08rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.16s;
+}
+
+.search-btn:hover {
+  background: #38bdf8;
+}
+
+.post-btn {
+  background: linear-gradient(90deg, #38bdf8 0%, #fbbf24 100%);
+  color: #fff;
+  border: none;
+  border-radius: 0.7rem;
+  padding: 12px 22px;
+  font-size: 1.08rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #38bdf828;
+  transition: background 0.16s, box-shadow 0.15s, transform 0.13s;
+}
+
+.post-btn:hover {
+  background: linear-gradient(90deg, #fbbf24 0%, #38bdf8 100%);
+  box-shadow: 0 6px 16px #38bdf820;
+  transform: translateY(-2px) scale(1.04);
+}
+
+.listings-main {
+  display: flex;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 32px auto 0 auto;
+  animation: fadeInUp 1.2s;
+}
+
+.listings-filters {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px #0001;
+  padding: 24px 18px;
+  min-width: 220px;
+  max-width: 260px;
+  animation: fadeIn 1.5s;
+}
+
+.listings-filters h3 {
+  color: #2563eb;
+  font-size: 1.13rem;
+  margin-bottom: 18px;
+  font-weight: 700;
+}
+
+.filter-group {
+  margin-bottom: 18px;
+}
+
+.filter-group label {
+  display: block;
+  color: #475569;
+  font-size: 1.01rem;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e1;
+  font-size: 1.01rem;
+  background: #f7fafc;
+  transition: border-color 0.2s;
+}
+
+.filter-group select:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+
+.listings-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.no-listings {
+  background: #f8fafc;
+  border-radius: 1rem;
+  padding: 32px 18px;
+  text-align: center;
+  color: #475569;
+  font-size: 1.1rem;
+  margin-top: 24px;
+  animation: fadeIn 1.2s;
+}
+
+.listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 32px;
+  margin-top: 18px;
+  animation: fadeInUp 1.3s;
+}
+
+.listing-card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px #3182ce11;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: fadeIn 1.5s;
+}
+
+.listing-card:hover {
+  transform: translateY(-8px) scale(1.04);
+  box-shadow: 0 8px 32px #3182ce22;
+}
+
+.listing-card-img-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 140px;
+  background: #e0ecff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.listing-card-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 1rem 1rem 0 0;
+  background: #e0ecff;
+  animation: fadeIn 1.2s;
+}
+
+.listing-card-img.placeholder {
+  width: 100%;
+  height: 140px;
+  background: #e0ecff;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.badge {
+  background: #3182ce;
+  color: #fff;
+  border-radius: 0.5em;
+  padding: 3px 10px;
+  font-size: 0.93rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px #3182ce22;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  animation: fadeInUp 1.2s;
+}
+
+.badge-status {
+  background: #38bdf8;
+  color: #fff;
+  left: 10px;
+}
+
+.badge-category {
+  background: #fbbf24;
+  color: #2d3748;
+  position: static;
+  margin-right: 6px;
+}
+
+.badge-date {
+  background: #e0ecff;
+  color: #2563eb;
+  position: static;
+}
+
+.listing-card-content {
+  padding: 18px 16px 14px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.listing-card-title {
+  color: #2563eb;
+  font-size: 1.13rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-decoration: none;
+  transition: color 0.18s;
+}
+
+.listing-card-title:hover {
+  color: #fbbf24;
+  text-decoration: underline;
+}
+
+.listing-card-desc {
+  color: #475569;
+  font-size: 0.99rem;
+  margin-bottom: 6px;
+  flex: 1;
+}
+
+.listing-card-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.listings-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin: 32px 0 0 0;
+  animation: fadeIn 1.7s;
+}
+
+.pagination-btn {
+  background: #e0ecff;
+  color: #2563eb;
+  border: none;
+  border-radius: 0.7rem;
+  padding: 10px 18px;
+  font-weight: 600;
+  font-size: 1.01rem;
+  cursor: pointer;
+  transition: background 0.16s, color 0.16s;
+}
+
+.pagination-btn:hover {
+  background: #2563eb;
+  color: #fff;
+}
+
+.pagination-info {
+  color: #475569;
+  font-size: 1.01rem;
+  font-weight: 500;
+}
+
+@media (max-width: 1100px) {
+  .listings-main {
+    flex-direction: column;
+    gap: 18px;
+    padding: 0 4vw;
+  }
+
+  .listings-filters {
+    max-width: 100%;
+    min-width: 0;
+    margin-bottom: 18px;
+  }
+}
+
+@media (max-width: 700px) {
+  .listings-hero {
+    padding: 24px 4vw 18px 4vw;
+  }
+
+  .listings-main {
+    padding: 0 2vw;
+  }
+
+  .listings-filters {
+    padding: 14px 8px;
+  }
+
+  .listings-grid {
+    gap: 14px;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+

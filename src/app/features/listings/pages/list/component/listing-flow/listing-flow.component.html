@@ -1,13 +1,73 @@
-<section class="listings-section p-4 max-w-4xl mx-auto">
-  <section class="p-4 max-w-4xl mx-auto">
-    <h1 class="text-2xl font-bold mb-4">Neighbour Listings</h1>
+<!-- Professional, animated, and modern Listing Flow Page -->
+<section class="listings-hero">
+  <h1 class="listings-title">Neighbour Listings</h1>
+  <p class="listings-subtitle">Discover, connect, and help in your neighborhood. Browse or post new listings below!</p>
+  <div class="listings-search-bar">
+    <input class="search-input" placeholder="Search listings..." type="text"/>
+    <button class="search-btn">🔍</button>
+    <button class="post-btn" routerLink="/listings/post">+ Post New Listing</button>
+  </div>
+</section>
+<section class="listings-main">
+  <aside class="listings-filters">
+    <h3>Filter By</h3>
+    <div class="filter-group">
+      <label>Category</label>
+      <select>
+        <option>All</option>
+        <option>Help</option>
+        <option>Items</option>
+        <option>Events</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Status</label>
+      <select>
+        <option>All</option>
+        <option>Open</option>
+        <option>Closed</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Sort By</label>
+      <select>
+        <option>Newest</option>
+        <option>Popular</option>
+      </select>
+    </div>
+  </aside>
+  <div class="listings-content">
     <div *ngIf="loadingService.loading">
       <app-loading></app-loading>
     </div>
-    <ul *ngIf="loadingService.loading" class="space-y-2">
-      <li *ngFor="let item of listings()" class="border p-2 rounded shadow-sm hover:shadow">
-        <a [routerLink]="item.id" class="underline text-primary">{{ item.title }}</a>
-      </li>
-    </ul>
-  </section>
+    <div *ngIf="!loadingService.loading && listings()?.length === 0" class="no-listings">
+      <p>No listings found. Try adjusting your filters or <a routerLink="/listings/post">post a new listing</a>!</p>
+    </div>
+    <div *ngIf="!loadingService.loading && listings()?.length" class="listings-grid">
+      <div *ngFor="let item of listings()" class="listing-card">
+        <div class="listing-card-img-wrapper">
+          <img *ngIf="item.imageUrl; else placeholderImg" [src]="item.imageUrl" alt="Listing Image"
+               class="listing-card-img"/>
+          <ng-template #placeholderImg>
+            <div class="listing-card-img placeholder">No Image</div>
+          </ng-template>
+          <span *ngIf="item.status" class="badge badge-status">{{ item.status }}</span>
+        </div>
+        <div class="listing-card-content">
+          <a [routerLink]="item.id" class="listing-card-title">{{ item.title }}</a>
+          <p class="listing-card-desc">{{ item.description }}</p>
+          <div class="listing-card-meta">
+            <span class="badge badge-category">{{ item.category || 'General' }}</span>
+            <span class="badge badge-date">{{ item.date | date:'mediumDate' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!loadingService.loading && listings()?.length" class="listings-pagination">
+      <button class="pagination-btn">&lt; Prev</button>
+      <span class="pagination-info">Page 1 of 5</span>
+      <button class="pagination-btn">Next &gt;</button>
+    </div>
+  </div>
 </section>
+
