@@ -3,8 +3,9 @@
   <h1 class="listings-title">Neighbour Listings</h1>
   <p class="listings-subtitle">Discover, connect, and help in your neighborhood. Browse or post new listings below!</p>
   <div class="listings-search-bar">
-    <input class="search-input" placeholder="Search listings..." type="text"/>
-    <button class="search-btn">🔍</button>
+    <input (input)="search.set($any($event.target).value)" [value]="search()" class="search-input"
+           placeholder="Search listings..." type="text"/>
+    <button class="search-btn" type="button">🔍</button>
     <button class="post-btn" routerLink="/listings/post">+ Post New Listing</button>
   </div>
 </section>
@@ -13,27 +14,54 @@
     <h3>Filter By</h3>
     <div class="filter-group">
       <label>Category</label>
-      <select>
-        <option>All</option>
-        <option>Help</option>
-        <option>Items</option>
-        <option>Events</option>
+      <select (change)="category.set($any($event.target).value)" [value]="category()">
+        <option *ngFor="let c of categoryOptions" [value]="c">{{ c }}</option>
       </select>
     </div>
     <div class="filter-group">
       <label>Status</label>
-      <select>
-        <option>All</option>
-        <option>Open</option>
-        <option>Closed</option>
+      <select (change)="status.set($any($event.target).value)" [value]="status()">
+        <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
       </select>
     </div>
     <div class="filter-group">
       <label>Sort By</label>
-      <select>
-        <option>Newest</option>
-        <option>Popular</option>
+      <select (change)="sort.set($any($event.target).value)" [value]="sort()">
+        <option *ngFor="let s of sortOptions" [value]="s">{{ s }}</option>
       </select>
+    </div>
+    <div class="filter-group">
+      <label>Min Price</label>
+      <input (input)="minPrice.set($any($event.target).valueAsNumber)" [value]="minPrice() || 0" max="10000" min="0" step="1"
+             type="range"/>
+      <span>{{ minPrice() || 0 }}</span>
+    </div>
+    <div class="filter-group">
+      <label>Max Price</label>
+      <input (input)="maxPrice.set($any($event.target).valueAsNumber)" [value]="maxPrice() || 10000" max="10000" min="0" step="1"
+             type="range"/>
+      <span>{{ maxPrice() || 10000 }}</span>
+    </div>
+    <div class="filter-group">
+      <label>Tags (comma separated)</label>
+      <input (input)="onTagsInput($event)" [value]="tags().join(', ')" type="text"/>
+    </div>
+    <div class="filter-group">
+      <label>Min Rating</label>
+      <div (mouseleave)="hoveredStar = 0" class="star-rating">
+        <ng-container *ngFor="let star of [1,2,3,4,5]">
+          <span
+            (click)="minRating.set(star)"
+            (mouseenter)="hoveredStar = star"
+            [class.filled]="(hoveredStar ? hoveredStar : minRating() ?? 0) >= star"
+            [class.interactive]="true"
+            class="star"
+          >&#9733;</span>
+        </ng-container>
+        <span (click)="minRating.set(null)" class="clear-rating">&#10006;</span>
+        <span
+          class="star-value">{{ minRating() ? minRating() + ' star' + ((minRating() ?? 0) > 1 ? 's' : '') : 'Any' }}</span>
+      </div>
     </div>
   </aside>
   <div class="listings-content">
@@ -44,7 +72,7 @@
       <p>No listings found. Try adjusting your filters or <a routerLink="/listings/post">post a new listing</a>!</p>
     </div>
     <div *ngIf="!loadingService.loading()" class="listings-grid">
-      <div *ngFor="let item of listings()" class="listing-card">
+      <div *ngFor="let item of pagedListings()" class="listing-card">
         <div class="listing-card-img-wrapper">
           <img *ngIf="item.imageUrl; else placeholderImg" [ngSrc]="item.imageUrl" alt="Listing Image"
                class="listing-card-img"/>
@@ -60,14 +88,43 @@
             <span class="badge badge-category">{{ item.category || 'General' }}</span>
             <span class="badge badge-date">{{ item.date | date:'mediumDate' }}</span>
           </div>
+          <div class="listing-card-extra">
+            <span class="listing-card-price">💰 {{ item.price | currency:'USD':'symbol':'1.0-0' }}</span>
+            <span class="listing-card-rating">
+              <ng-container *ngFor="let star of [1,2,3,4,5]">
+                <span
+                  [class.filled]="item.rating >= star"
+                  [class.half]="item.rating >= (star - 0.5) && item.rating < star"
+                  class="star"
+                >&#9733;</span>
+              </ng-container>
+              <span class="rating-value">({{ item.rating }})</span>
+            </span>
+            <span *ngIf="item.city || item.state" class="listing-card-location">📍 {{ item.city }}<span
+              *ngIf="item.state">, {{ item.state }}</span></span>
+            <span *ngIf="item.tags?.length" class="listing-card-tags">
+              <span *ngFor="let tag of item.tags" class="badge badge-tag">{{ tag }}</span>
+            </span>
+            <span *ngIf="item.avatarUrl || item.name" class="listing-card-user">
+              <img *ngIf="item.avatarUrl" [src]="item.avatarUrl" alt="User Avatar" class="listing-card-avatar"/>
+              <span *ngIf="item.name">{{ item.name }}</span>
+            </span>
+          </div>
         </div>
       </div>
     </div>
-    <div *ngIf="!loadingService.loading && listings()?.length" class="listings-pagination">
-      <button class="pagination-btn">&lt; Prev</button>
-      <span class="pagination-info">Page 1 of 5</span>
-      <button class="pagination-btn">Next &gt;</button>
+    <div class="listings-pagination">
+      <button (click)="currentPage.set(currentPage() - 1)" [disabled]="currentPage() === 1" class="pagination-btn">
+        Previous
+      </button>
+      <span class="pagination-info">Page {{ currentPage() }} of {{ totalPages() }}</span>
+      <button (click)="currentPage.set(currentPage() + 1)" [disabled]="currentPage() === totalPages()"
+              class="pagination-btn">
+        Next
+      </button>
+    </div>
+    <div *ngIf="!pagedListings()?.length && !loadingService.loading()" class="listings-empty-state">
+      <p>No listings found. Try adjusting your filters or <a routerLink="/listings/post">post a new listing</a>!</p>
     </div>
   </div>
 </section>
-

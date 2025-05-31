@@ -126,6 +126,9 @@
         <fa-icon *ngIf="loadingService.loading()" [icon]="faSpinner" spin></fa-icon>
         <span *ngIf="!loadingService.loading()">Sign Up</span>
       </button>
+      <div *ngIf="signUpForm.invalid && signUpForm.touched" class="error-message" style="text-align:center;">
+        Please fill all required fields and accept the terms.
+      </div>
       <div class="alternative-signup">
         <p>Or sign up with</p>
         <div class="social-buttons">

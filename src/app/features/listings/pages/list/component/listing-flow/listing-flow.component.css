@@ -404,6 +404,55 @@ section.listings-section a:hover {
   }
 }
 
+/* Star Filtering Styles */
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 1.7rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.star-rating .star,
+.listing-card-rating .star {
+  color: #e2e8f0;
+  font-size: 1.3rem;
+  margin-right: 2px;
+  transition: color 0.2s, text-shadow 0.15s;
+  position: relative;
+  display: inline-block;
+}
+
+.star-rating .star.filled,
+.listing-card-rating .star.filled {
+  color: #fbbf24;
+  text-shadow: 0 2px 8px #fbbf2433;
+}
+
+.star-rating .star.half,
+.listing-card-rating .star.half {
+  color: #fbbf24;
+}
+
+.star-rating .star.half::after,
+.listing-card-rating .star.half::after {
+  content: '\2605';
+  color: #e2e8f0;
+  position: absolute;
+  left: 50%;
+  width: 50%;
+  overflow: hidden;
+  top: 0;
+}
+
+.star-value,
+.rating-value {
+  font-size: 1rem;
+  color: #64748b;
+  margin-left: 4px;
+}
+
 @keyframes fadeInDown {
   from {
     opacity: 0;
@@ -434,4 +483,3 @@ section.listings-section a:hover {
     opacity: 1;
   }
 }
-
