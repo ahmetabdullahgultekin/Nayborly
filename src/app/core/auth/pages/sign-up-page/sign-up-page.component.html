@@ -70,6 +70,49 @@
         </div>
       </div>
       <div class="form-group">
+        <label for="phone">Phone</label>
+        <div class="input-icon-group">
+          <fa-icon [icon]="['fas', 'phone']"></fa-icon>
+          <input formControlName="phone" id="phone" placeholder="Enter your phone number" type="text"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <div class="input-icon-group">
+          <fa-icon [icon]="['fas', 'location-dot']"></fa-icon>
+          <input formControlName="address" id="address" placeholder="Enter your address" type="text"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <div class="input-icon-group">
+          <fa-icon [icon]="['fas', 'city']"></fa-icon>
+          <input formControlName="city" id="city" placeholder="Enter your city" type="text"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="state">State</label>
+        <div class="input-icon-group">
+          <fa-icon [icon]="faFlag"></fa-icon>
+          <input formControlName="state" id="state" placeholder="Enter your state" type="text"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="zipCode">Zip Code</label>
+        <div class="input-icon-group">
+          <fa-icon [icon]="faHashtag"></fa-icon>
+          <input formControlName="zipCode" id="zipCode" placeholder="Enter your zip code" type="text"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="avatarUrl">Avatar URL</label>
+        <div class="input-icon-group">
+          <fa-icon [icon]="faImage"></fa-icon>
+          <input formControlName="avatarUrl" id="avatarUrl" placeholder="Enter avatar image URL (optional)"
+                 type="text"/>
+        </div>
+      </div>
+      <div class="form-group">
         <label for="terms">
           <input [class.invalid]="terms?.invalid && (terms?.touched || terms?.dirty)" formControlName="terms" id="terms"
                  type="checkbox"/>
@@ -79,9 +122,9 @@
           <span *ngIf="terms?.errors?.['required']">You must accept the terms and conditions.</span>
         </div>
       </div>
-      <button [disabled]="signUpForm.invalid || isLoading" class="submit-button" type="submit">
-        <fa-icon *ngIf="isLoading" [icon]="faSpinner" spin></fa-icon>
-        <span *ngIf="!isLoading">Sign Up</span>
+      <button [disabled]="signUpForm.invalid || loadingService.loading()" class="submit-button" type="submit">
+        <fa-icon *ngIf="loadingService.loading()" [icon]="faSpinner" spin></fa-icon>
+        <span *ngIf="!loadingService.loading()">Sign Up</span>
       </button>
       <div class="alternative-signup">
         <p>Or sign up with</p>

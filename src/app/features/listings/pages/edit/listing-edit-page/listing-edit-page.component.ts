@@ -17,13 +17,22 @@ export class ListingEditPageComponent {
   private http = inject(HttpClient);
   private router = inject(Router);
 
-
   save() {
-    // edit.component.ts  (PUT update)
-    this.http.put(
-      `https://api.jsonbin.io/v3/b/${environment.jsonBin.id}`,
-      this.model,
+    // 1. Fetch the current listings
+    this.http.get<any>(
+      `https://api.jsonbin.io/v3/b/${environment.jsonBin.bins.listingsBin.id}`,
       {headers: {'X-Access-Key': environment.jsonBin.secret}}
-    ).subscribe(() => this.router.navigate(['..']));
+    ).subscribe(data => {
+      const listings = data.record.listings || [];
+      // 2. Update the item in the array
+      const idx = listings.findIndex((l: any) => l.id === this.model.id);
+      if (idx !== -1) listings[idx] = this.model;
+      // 3. PUT the whole updated array back
+      this.http.put(
+        `https://api.jsonbin.io/v3/b/${environment.jsonBin.bins.listingsBin.id}`,
+        {listings},
+        {headers: {'X-Master-Key': environment.jsonBin.master}}
+      ).subscribe(() => this.router.navigate(['..']));
+    });
   }
 }

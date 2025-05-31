@@ -40,13 +40,13 @@
     <div *ngIf="loadingService.loading">
       <app-loading></app-loading>
     </div>
-    <div *ngIf="!loadingService.loading && listings()?.length === 0" class="no-listings">
+    <div *ngIf="loadingService.loading() && listings()?.length === 0" class="no-listings">
       <p>No listings found. Try adjusting your filters or <a routerLink="/listings/post">post a new listing</a>!</p>
     </div>
-    <div *ngIf="!loadingService.loading && listings()?.length" class="listings-grid">
+    <div *ngIf="!loadingService.loading()" class="listings-grid">
       <div *ngFor="let item of listings()" class="listing-card">
         <div class="listing-card-img-wrapper">
-          <img *ngIf="item.imageUrl; else placeholderImg" [src]="item.imageUrl" alt="Listing Image"
+          <img *ngIf="item.imageUrl; else placeholderImg" [ngSrc]="item.imageUrl" alt="Listing Image"
                class="listing-card-img"/>
           <ng-template #placeholderImg>
             <div class="listing-card-img placeholder">No Image</div>

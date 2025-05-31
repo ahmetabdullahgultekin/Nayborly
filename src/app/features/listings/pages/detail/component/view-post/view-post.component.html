@@ -29,6 +29,41 @@
     <div *ngIf="listing()?.tags?.length" class="listing-tags">
       <span *ngFor="let tag of listing()?.tags" class="tag">#{{ tag }}</span>
     </div>
+    <div class="listing-detail-fields">
+      <h2>Listing Details</h2>
+      <ul>
+        <li><strong>ID:</strong> {{ listing()?.id }}</li>
+        <li><strong>Title:</strong> {{ listing()?.title }}</li>
+        <li><strong>Description:</strong> {{ listing()?.description }}</li>
+        <li><strong>Created At:</strong> {{ listing()?.createdAt | date:'medium' }}</li>
+        <li><strong>Updated At:</strong> {{ listing()?.updatedAt | date:'medium' }}</li>
+      </ul>
+    </div>
+    <div *ngIf="listing()?.user" class="listing-user-fields">
+      <h2>Posted By</h2>
+      <ul>
+        <li><strong>User ID:</strong> {{ listing()?.user.id }}</li>
+        <li><strong>Name:</strong> {{ listing()?.user.name }}</li>
+        <li><strong>Email:</strong> {{ listing()?.user.email }}</li>
+        <li *ngIf="listing()?.user.avatarUrl"><strong>Avatar:</strong> <img [src]="listing()?.user.avatarUrl"
+                                                                            alt="Avatar" height="40" width="40"></li>
+        <li *ngIf="listing()?.user.role"><strong>Role:</strong> {{ listing()?.user.role }}</li>
+        <li *ngIf="listing()?.user.phone"><strong>Phone:</strong> {{ listing()?.user.phone }}</li>
+        <li *ngIf="listing()?.user.address"><strong>Address:</strong> {{ listing()?.user.address }}</li>
+        <li *ngIf="listing()?.user.city"><strong>City:</strong> {{ listing()?.user.city }}</li>
+        <li *ngIf="listing()?.user.state"><strong>State:</strong> {{ listing()?.user.state }}</li>
+        <li *ngIf="listing()?.user.zipCode"><strong>Zip Code:</strong> {{ listing()?.user.zipCode }}</li>
+        <li *ngIf="listing()?.user.createdAt"><strong>User Created
+          At:</strong> {{ listing()?.user.createdAt | date:'medium' }}
+        </li>
+        <li *ngIf="listing()?.user.updatedAt"><strong>User Updated
+          At:</strong> {{ listing()?.user.updatedAt | date:'medium' }}
+        </li>
+        <li *ngIf="listing()?.user.lastLogin"><strong>Last
+          Login:</strong> {{ listing()?.user.lastLogin | date:'medium' }}
+        </li>
+      </ul>
+    </div>
   </div>
   <aside class="listing-detail-sidebar">
     <div class="poster-card">
@@ -53,3 +88,6 @@
 <ng-container *ngIf="loading.loading">
   <app-loading></app-loading>
 </ng-container>
+
+
+

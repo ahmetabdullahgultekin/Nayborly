@@ -14,7 +14,7 @@ export const APP_ROUTES = {
   },
   PROFILE: {
     PROFILE: 'profile',
-    DASHBOARD: 'dashboard',
+    DASHBOARD: 'profile/dashboard',
   },
   AUTH: {
     AUTH: 'auth',

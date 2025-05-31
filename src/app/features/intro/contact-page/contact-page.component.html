@@ -33,18 +33,19 @@
   </div>
   <div class="contact-form-card slide-in">
     <h2>Send Us a Message</h2>
-    <form>
+    <form (ngSubmit)="onSubmit()" [formGroup]="contactForm">
       <div class="form-row">
-        <input name="name" placeholder="Your Name" required type="text"/>
+        <input formControlName="name" name="name" placeholder="Your Name" required type="text"/>
       </div>
       <div class="form-row">
-        <input name="email" placeholder="Your Email" required type="email"/>
+        <input formControlName="email" name="email" placeholder="Your Email" required type="email"/>
       </div>
       <div class="form-row">
-        <textarea name="message" placeholder="Your Message" required rows="5"></textarea>
+        <textarea formControlName="message" name="message" placeholder="Your Message" required rows="5"></textarea>
       </div>
       <div class="form-row">
-        <button class="contact-submit-btn" type="submit">Send Message</button>
+        <button [disabled]="submitting || contactForm.invalid" class="contact-submit-btn" type="submit">Send Message
+        </button>
       </div>
     </form>
   </div>
@@ -57,9 +58,7 @@
        target="_blank"><span>🐙</span></a>
     <a aria-label="LinkedIn" class="social-icon bounce" href="https://www.linkedin.com/in/ahmet-abdullah-gultekin"
        style="animation-delay: 0.1s;" target="_blank"><span>💼</span></a>
-    <a aria-label="Instagram" class="social-icon bounce" href="https://www.instagram.com/gltkn.a.a/#"
-       style="animation-delay: 0.2s;"
-       target="_blank"><span>📸</span></a>
+    <a aria-label="Instagram" class="social-icon bounce" href="https://www.instagram.com/ahmetabdullahgultekin"
+       style="animation-delay: 0.2s;" target="_blank"><span>📸</span></a>
   </div>
 </section>
-

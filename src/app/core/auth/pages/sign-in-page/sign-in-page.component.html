@@ -36,9 +36,9 @@
         </div>
       </div>
       <div class="form-actions">
-        <button [disabled]="loading" class="sign-in-btn" type="submit">
-          <fa-icon *ngIf="loading" [icon]="faEnvelope"></fa-icon>
-          <span *ngIf="!loading">Sign In</span>
+        <button [disabled]="loadingService.loading()" class="sign-in-btn" type="submit">
+          <fa-icon *ngIf="loadingService.loading()" [icon]="faEnvelope"></fa-icon>
+          <span *ngIf="!loadingService.loading()">Sign In</span>
         </button>
         <div class="forgot-password">
           <a routerLink="/auth/forgot-password">Forgot Password?</a>

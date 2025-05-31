@@ -5,6 +5,7 @@ import {LoadingComponent} from '../../../../../../shared/loading/loading.compone
 import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {environment} from '../../../../../../../environments/environment';
 import {LoadingService} from '../../../../../../core/services/loading.service';
+import {SnackbarService, SnackbarType} from '../../../../../../core/services/snackbar.service';
 
 @Component({
   selector: 'app-view-post',
@@ -25,20 +26,27 @@ export class ViewPostComponent {
   private http = inject(HttpClient);
   private route = inject(ActivatedRoute);
 
-  constructor(protected loading: LoadingService) {
+  constructor(protected loading: LoadingService, private snackbar: SnackbarService) {
     const id = this.route.snapshot.paramMap.get('id');
     loading.show();
-    // detail.component.ts  (GET one)
+    // Fetch all listings, then find the one with the matching id
     this.http.get<any>(
-      `https://api.jsonbin.io/v3/b/${environment.jsonBin.id}/${id}`,
+      environment.jsonBin.bins.listingsBin.url,
       {headers: {'X-Access-Key': environment.jsonBin.secret}}
     ).subscribe(
       data => {
-        this.listing.set(data);
+        // JSONBin returns { record: [...] }
+        const listings = Array.isArray(data?.record) ? data.record : [];
+        const found = listings.find((item: any) => item.id === id);
+        if (!found) {
+          this.snackbar.show('Listing not found.', SnackbarType.Error);
+        }
+        this.listing.set(found || null);
         loading.hide();
       },
       error => {
-        console.error('Error fetching listing:', error);
+        this.snackbar.show('Error fetching listings.', SnackbarType.Error);
+        console.error('Error fetching listings:', error);
         loading.hide();
       }
     );

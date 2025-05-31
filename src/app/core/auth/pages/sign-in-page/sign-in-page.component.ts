@@ -6,24 +6,35 @@ import {NgIf} from '@angular/common';
 import {faGoogle} from '@fortawesome/free-brands-svg-icons/faGoogle';
 import {faFacebook} from '@fortawesome/free-brands-svg-icons/faFacebook';
 import {faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons';
+import {AuthService} from '../../../services/auth.service';
+import {LoadingService} from '../../../services/loading.service';
+import {SnackbarService, SnackbarType} from '../../../services/snackbar.service';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {APP_ROUTES} from '../../../../app.routes';
 
 @Component({
   selector: 'app-sign-in-page',
-  imports: [ReactiveFormsModule, RouterLink, FontAwesomeModule, NgIf],
+  imports: [ReactiveFormsModule, RouterLink, FontAwesomeModule, NgIf, MatSnackBarModule],
   templateUrl: './sign-in-page.component.html',
   styleUrl: './sign-in-page.component.css'
 })
 export class SignInPageComponent {
   signInForm: FormGroup;
   hidePassword = true;
-  loading = false;
   error: string | null = null;
   protected readonly faGoogle = faGoogle;
   protected readonly faFacebook = faFacebook;
   protected readonly faLock = faLock;
   protected readonly faEnvelope = faEnvelope;
 
-  constructor(private fb: FormBuilder, private router: Router, private library: FaIconLibrary) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private library: FaIconLibrary,
+    private authService: AuthService,
+    protected loadingService: LoadingService,
+    private snackbar: SnackbarService
+  ) {
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -44,30 +55,43 @@ export class SignInPageComponent {
       this.signInForm.markAllAsTouched();
       return;
     }
-    this.loading = true;
-    // Simulate authentication (replace with real API call)
-    setTimeout(() => {
-      this.loading = false;
-      if (this.email?.value !== 'user@example.com' || this.password?.value !== 'password123') {
-        this.error = 'Invalid email or password.';
-      } else {
-        // Redirect to dashboard or home
-        this.router.navigate(['/dashboard']).then(r => {
-          if (!r) {
-            this.error = 'Navigation failed.';
-          }
+    this.loadingService.show();
+    this.authService.signIn(this.signInForm.value).subscribe({
+      next: () => {
+        this.loadingService.hide();
+        this.snackbar.show('Sign-in successful!', SnackbarType.Success);
+        this.router.navigate([APP_ROUTES.PROFILE.DASHBOARD]).then(() => {
+          this.snackbar.show('Welcome back!', SnackbarType.Success);
+        }).catch(err => {
+          console.error('Navigation error:', err);
+          this.snackbar.show('Navigation error. Please try again.', SnackbarType.Error);
         });
+      },
+      error: () => {
+        this.loadingService.hide();
+        this.error = 'Invalid email or password.';
+        this.snackbar.show('Invalid email or password.', SnackbarType.Error);
       }
-    }, 1200);
+    });
   }
 
   signInWithGoogle() {
-    // TODO: Implement Google sign-in logic
     this.error = 'Google sign-in is not implemented yet.';
   }
 
   signInWithFacebook() {
-    // TODO: Implement Facebook sign-in logic
     this.error = 'Facebook sign-in is not implemented yet.';
+  }
+
+  navigateToSignUp() {
+    this.router.navigate([APP_ROUTES.AUTH.SIGN_UP]).then(r =>
+      this.snackbar.show('Please sign up to continue.', SnackbarType.Info)
+    );
+  }
+
+  navigateToForgotPassword() {
+    this.router.navigate([APP_ROUTES.AUTH.FORGOT_PASSWORD]).then(r =>
+      this.snackbar.show('Please reset your password.', SnackbarType.Info)
+    );
   }
 }

@@ -134,6 +134,47 @@ button:hover, button:focus {
   margin-bottom: 1.5rem;
 }
 
+/* Snackbar-like notifications */
+.snackbar-success, .snackbar-error, .snackbar-info, .snackbar-warning {
+  font-size: 2rem !important;
+  padding: 20px 32px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+}
+
+.snackbar-success {
+  background: #43a047 !important;
+  color: #fff !important;
+}
+
+.snackbar-error {
+  background: #e53935 !important;
+  color: #fff !important;
+}
+
+.snackbar-info {
+  background: #1e88e5 !important;
+  color: #fff !important;
+}
+
+.snackbar-warning {
+  background: #ffa000 !important;
+  color: #fff !important;
+}
+
+.mdc-snackbar__surface.mat-mdc-snackbar-surface {
+  font-size: 2rem !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.mat-mdc-snack-bar-label mdc-snackbar__label {
+  font-size: large !important;
+  color: #fff !important;
+  line-height: 1.5 !important;
+}
+
 /* Mobile-first adjustments */
 @media (max-width: 650px) {
   html {
@@ -158,4 +199,13 @@ button:hover, button:focus {
   overflow: hidden;
   clip: rect(1px, 1px, 1px, 1px);
   white-space: nowrap;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
