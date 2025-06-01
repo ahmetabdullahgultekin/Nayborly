@@ -24,8 +24,8 @@
       <td data-label="Status">{{ user.lastLogin ? 'Active' : 'Inactive' }}</td>
       <td data-label="Joined">{{ user.createdAt | date:'yyyy-MM-dd' }}</td>
       <td data-label="Actions">
-        <button class="action-btn edit">Edit</button>
-        <button class="action-btn delete">Delete</button>
+        <button class="action-btn edit" (click)="editUser(user)">Edit</button>
+        <button class="action-btn delete" (click)="deleteUser(user)">Delete</button>
       </td>
     </tr>
     </tbody>

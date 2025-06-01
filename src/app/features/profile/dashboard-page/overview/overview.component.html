@@ -1,27 +1,53 @@
+<ng-container *ngIf="loadingService.loading()">
+  <app-loading></app-loading>
+</ng-container>
 <div class="dashboard-overview-container">
   <h2>Dashboard Overview</h2>
   <div class="dashboard-stats">
     <a [routerLink]="'../' + APP_ROUTES.PROFILE.DASHBOARD_VIEW.POSTS"
        class="stat-card stat-link">
-      <div class="stat-value">12</div>
+      <div class="stat-value">{{ postsCount }}</div>
       <div class="stat-label">Posts</div>
-      <div class="stat-desc">View and manage all posts</div>
+      <div class="stat-desc">
+        <ng-container *ngIf="isAdmin; else userPostsDesc">View and manage all posts</ng-container>
+        <ng-template #userPostsDesc>View and manage your posts</ng-template>
+      </div>
     </a>
-    <a [routerLink]="'../' + APP_ROUTES.PROFILE.DASHBOARD_VIEW.USERS"
-       class="stat-card stat-link">
-      <div class="stat-value">5</div>
-      <div class="stat-label">Users</div>
-      <div class="stat-desc">See all registered users</div>
-    </a>
-    <a [routerLink]="'../' + APP_ROUTES.PROFILE.DASHBOARD_VIEW.CONTACT_MESSAGES"
-       class="stat-card stat-link">
-      <div class="stat-value">3</div>
-      <div class="stat-label">Contact Messages</div>
-      <div class="stat-desc">Check your messages</div>
-    </a>
+    <ng-container *ngIf="isAdmin">
+      <a [routerLink]="'../' + APP_ROUTES.PROFILE.DASHBOARD_VIEW.USERS"
+         class="stat-card stat-link">
+        <div class="stat-value">{{ usersCount }}</div>
+        <div class="stat-label">Users</div>
+        <div class="stat-desc">View and manage all users</div>
+      </a>
+      <a [routerLink]="'../' + APP_ROUTES.PROFILE.DASHBOARD_VIEW.CONTACT_MESSAGES"
+         class="stat-card stat-link">
+        <div class="stat-value">{{ contactMessagesCount }}</div>
+        <div class="stat-label">Contact Messages</div>
+        <div class="stat-desc">View and manage all contact messages</div>
+      </a>
+    </ng-container>
   </div>
   <div class="dashboard-welcome">
-    <p>Welcome to your dashboard overview. Here you can see a summary of your activity and quick stats. Use the cards
-      above to quickly access different sections.</p>
+    <h3>Welcome, {{ user?.name || 'User' }}!</h3>
+    <p>Here you can manage your posts, favorites, and account settings.</p>
+    <p *ngIf="isAdmin">As an admin, you can also manage users and contact messages.</p>
+    <p>Use the links above to navigate through your dashboard.</p>
+    <p>If you have any questions, feel free to <a [routerLink]="APP_ROUTES.INTRO.CONTACT">contact us</a>.</p>
+  </div>
+  <div class="dashboard-tips">
+    <h4>Tips for Using Your Dashboard</h4>
+    <ul>
+      <li>Keep your profile updated to help others connect with you.</li>
+      <li>Use the search feature to quickly find posts or users.</li>
+      <li>Check your favorites regularly to stay updated on listings you love.</li>
+    </ul>
+    <p>We hope you enjoy using Nayborly! If you have any feedback, please let us know.</p>
+  </div>
+  <div class="dashboard-footer">
+    <p>&copy; {{ currentYear }} Nayborly. All rights reserved.</p>
+    <p>Follow us on <a href="https://twitter.com/nayborly" target="_blank" rel="noopener noreferrer">Twitter</a>
+      and <a href="http://instagram.com/nayborly" target="_blank" rel="noopener noreferrer">Instagram</a> for updates.</p>
+    <p>Need help? Visit our <a [routerLink]="APP_ROUTES.INTRO.CONTACT">Contact</a> page.</p>
   </div>
 </div>

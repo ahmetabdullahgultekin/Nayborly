@@ -8,11 +8,12 @@
       <th>Subject</th>
       <th>Message</th>
       <th>Date</th>
+      <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngIf="loading">
-      <td colspan="5" style="text-align:center; padding: 2rem;">
+      <td colspan="6" style="text-align:center; padding: 2rem;">
         <span class="loading-spinner"></span> Loading messages...
       </td>
     </tr>
@@ -22,8 +23,10 @@
       <td data-label="Subject">{{ msg.subject || '-' }}</td>
       <td data-label="Message">{{ msg.message }}</td>
       <td data-label="Date">{{ msg.date || '-' }}</td>
+      <td data-label="Actions">
+        <button class="action-btn delete" (click)="deleteMessage(msg)">Delete</button>
+      </td>
     </tr>
     </tbody>
   </table>
 </div>
-

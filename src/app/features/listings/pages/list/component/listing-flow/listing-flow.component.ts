@@ -1,4 +1,4 @@
-import {Component, computed, signal} from '@angular/core';
+import {Component, computed, signal, effect} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CurrencyPipe, DatePipe, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
@@ -139,10 +139,28 @@ export class ListingFlowComponent {
         this.loadingService.hide();
       }
     );
+    // Reset page to 1 whenever listings change
+    effect(() => {
+      const total = this.totalPages();
+      if (this.currentPage() > total && total > 0) {
+        this.currentPage.set(total);
+      }
+      if (total === 0) {
+        this.currentPage.set(1);
+      }
+    });
+  }
+
+  // Helper to reset page to 1
+  private resetPage() {
+    this.currentPage.set(1);
   }
 
   fetchUsers() {
-    this.http.get<any>(environment.jsonBin.bins.usersBin.url, {headers: {'X-Access-Key': environment.jsonBin.secret}})
+    this.http.get<any>(
+      environment.jsonBin.bins.usersBin.url,
+      {headers: {'X-Access-Key': environment.jsonBin.secret}}
+    )
       .subscribe(data => {
         const users: User[] = Array.isArray(data.record) ? data.record : (data.record?.users || []);
         this.userMap = users.reduce((acc, user) => {

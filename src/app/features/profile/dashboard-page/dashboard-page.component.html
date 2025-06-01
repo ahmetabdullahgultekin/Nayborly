@@ -6,10 +6,12 @@
     <nav class="sidebar-nav">
       <a [routerLink]="'/'" routerLinkActive="active">Return to Home</a>
       <a [routerLink]="APP_ROUTES.PROFILE.DASHBOARD_VIEW.OVERVIEW" routerLinkActive="active">Overview</a>
-      <a [routerLink]="APP_ROUTES.PROFILE.DASHBOARD_VIEW.USERS" routerLinkActive="active">Users</a>
-      <a [routerLink]="APP_ROUTES.PROFILE.DASHBOARD_VIEW.POSTS" routerLinkActive="active">Posts</a>
-      <a [routerLink]="APP_ROUTES.PROFILE.DASHBOARD_VIEW.CONTACT_MESSAGES" routerLinkActive="active">Contact
-        Messages</a>
+      <a *ngIf="isAdmin; else userPostsLink" [routerLink]="APP_ROUTES.PROFILE.DASHBOARD_VIEW.USERS" routerLinkActive="active">Users</a>
+      <ng-template #userPostsLink>
+        <a [routerLink]="APP_ROUTES.PROFILE.DASHBOARD_VIEW.POSTS" routerLinkActive="active">My Posts</a>
+      </ng-template>
+      <a *ngIf="isAdmin" [routerLink]="APP_ROUTES.PROFILE.DASHBOARD_VIEW.POSTS" routerLinkActive="active">All Posts</a>
+      <a *ngIf="isAdmin" [routerLink]="APP_ROUTES.PROFILE.DASHBOARD_VIEW.CONTACT_MESSAGES" routerLinkActive="active">Contact Messages</a>
     </nav>
     <button (click)="logout()" class="sidebar-logout">Log Out</button>
   </aside>

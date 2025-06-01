@@ -65,6 +65,9 @@
           class="star-value">{{ minRating() ? minRating() + ' star' + ((minRating() ?? 0) > 1 ? 's' : '') : 'Any' }}</span>
       </div>
     </div>
+    <button class="reset-filters-btn" (click)="resetFilters()" style="margin-top: 1rem; width: 100%;">
+      Reset All Filters
+    </button>
   </aside>
   <div class="listings-content">
     <div *ngIf="loadingService.loading">

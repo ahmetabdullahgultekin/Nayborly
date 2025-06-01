@@ -1,0 +1,13 @@
+/* Basic styling for the edit user dialog */
+.full-width {
+  width: 100%;
+}
+
+mat-form-field {
+  margin-bottom: 1rem;
+}
+
+mat-dialog-actions {
+  margin-top: 1rem;
+}
+

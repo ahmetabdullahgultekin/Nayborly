@@ -1,31 +1,32 @@
 <div class="dashboard-posts-container">
   <h2>Posts</h2>
-  <table class="dashboard-posts-table">
-    <thead>
-    <tr>
-      <th>Title</th>
-      <th>Author</th>
-      <th>Status</th>
-      <th>Date</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngIf="loading">
-      <td colspan="5" style="text-align:center; padding: 2rem;">
-        <span class="loading-spinner"></span> Loading posts...
-      </td>
-    </tr>
-    <tr *ngFor="let post of posts">
-      <td data-label="Title">{{ post.title }}</td>
-      <td data-label="Author">{{ post.userId }}</td>
-      <td data-label="Status">{{ post.status }}</td>
-      <td data-label="Date">{{ post.createdAt | date:'yyyy-MM-dd' }}</td>
-      <td data-label="Actions">
-        <button class="action-btn edit">Edit</button>
-        <button class="action-btn delete">Delete</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="!loading && posts.length === 0" class="no-posts-message">
+    <p>You do not have any posts yet.</p>
+  </div>
+  <div *ngIf="!loading && posts.length > 0">
+    <table class="dashboard-posts-table">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let post of posts">
+        <td data-label="Title">{{ post.title }}</td>
+        <td data-label="Author">{{ post.userId }}</td>
+        <td data-label="Status">{{ post.status }}</td>
+        <td data-label="Date">{{ post.createdAt | date:'yyyy-MM-dd' }}</td>
+        <td data-label="Actions">
+          <button class="action-btn edit" (click)="editPost(post)">Edit</button>
+          <button class="action-btn delete" (click)="deletePost(post)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

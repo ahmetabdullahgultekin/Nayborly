@@ -3,6 +3,10 @@ import {HttpClient} from '@angular/common/http';
 import {Post} from '../../../../core/interfaces/post';
 import {environment} from '../../../../../environments/environment';
 import {DatePipe, NgForOf, NgIf} from '@angular/common';
+import {AuthService} from '../../../../core/services/auth.service';
+import {User} from '../../../../core/interfaces/user';
+import { MatDialog } from '@angular/material/dialog';
+import { EditPostDialogComponent } from './edit-post-dialog.component';
 
 @Component({
   selector: 'app-dashboard-posts',
@@ -18,12 +22,16 @@ import {DatePipe, NgForOf, NgIf} from '@angular/common';
 export class PostsComponent implements OnInit {
   posts: Post[] = [];
   loading = true;
+  currentUser: User | null = null;
+  isAdmin = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
     this.loading = true;
+    this.currentUser = this.authService.getCurrentUser();
+    this.isAdmin = this.currentUser?.role === 'admin';
     this.http.get<any>(
       environment.jsonBin.bins.listingsBin.url,
       {
@@ -38,7 +46,10 @@ export class PostsComponent implements OnInit {
         } else if (Array.isArray(data.record?.posts)) {
           posts = data.record.posts;
         }
-        // Ensure category and status are always present and match the filter options
+        // Only show posts belonging to the current user if not admin
+        if (!this.isAdmin && this.currentUser) {
+          posts = posts.filter(post => post.userId === this.currentUser?.id);
+        }
         this.posts = posts.map(post => ({
           ...post,
           category: post.category || '',
@@ -49,5 +60,47 @@ export class PostsComponent implements OnInit {
         this.posts = [];
         this.loading = false;
       });
+  }
+
+  editPost(post: Post): void {
+    const dialogRef = this.dialog.open(EditPostDialogComponent, {
+      width: '400px',
+      data: { ...post }
+    });
+    dialogRef.afterClosed().subscribe((result: Post | undefined) => {
+      if (result) {
+        const updatedPosts = this.posts.map(p => p === post ? result : p);
+        this.http.put(environment.jsonBin.bins.listingsBin.url, { posts: updatedPosts }, {
+          headers: {
+            'X-Access-Key': environment.jsonBin.secret
+          }
+        }).subscribe({
+          next: () => {
+            this.posts = updatedPosts;
+          },
+          error: () => {
+            alert('Failed to update post. Please try again.');
+          }
+        });
+      }
+    });
+  }
+
+  deletePost(post: Post): void {
+    if (confirm(`Are you sure you want to delete the post titled "${post.title}"?`)) {
+      const updatedPosts = this.posts.filter(p => p !== post);
+      this.http.put(environment.jsonBin.bins.listingsBin.url, { posts: updatedPosts }, {
+        headers: {
+          'X-Access-Key': environment.jsonBin.secret
+        }
+      }).subscribe({
+        next: () => {
+          this.posts = updatedPosts;
+        },
+        error: () => {
+          alert('Failed to delete post. Please try again.');
+        }
+      });
+    }
   }
 }

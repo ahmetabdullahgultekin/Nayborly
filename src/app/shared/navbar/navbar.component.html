@@ -31,7 +31,10 @@
          (mouseleave)="onDropdownLeave()"
          class="navbar-auth desktop-only profile-dropdown">
       <a [routerLink]="APP_ROUTES.PROFILE.PROFILE" class="navbar-profile" title="Your Profile">
-        <img alt="Profile" class="navbar-profile-img" height="60" ngSrc="/favicon.svg" width="230"/>
+        <img *ngIf="isLoggedIn() && userAvatarUrl; else defaultAvatar" [src]="userAvatarUrl" alt="Profile" class="navbar-profile-img" height="60" width="60"/>
+        <ng-template #defaultAvatar>
+          <img alt="Profile" class="navbar-profile-img" height="60" width="60" ngSrc="/favicon.svg"/>
+        </ng-template>
       </a>
       <ul (mouseenter)="onDropdownEnter()" (mouseleave)="onDropdownLeave()" [class.open]="showDropdown"
           class="dropdown-menu">

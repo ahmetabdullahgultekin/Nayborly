@@ -35,4 +35,19 @@ export class ContactService {
       })
     );
   }
+
+  getAllMessages(): Observable<ContactMessage[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Access-Key': environment.jsonBin.secret,
+    });
+    return this.http.get<any>(environment.jsonBin.bins.contactMessagesBin.url, {headers})
+      .pipe(
+        // Map the response to just the array of messages
+        switchMap((response: any) => {
+          const messages: ContactMessage[] = Array.isArray(response?.record) ? response.record : [];
+          return [messages];
+        })
+      );
+  }
 }

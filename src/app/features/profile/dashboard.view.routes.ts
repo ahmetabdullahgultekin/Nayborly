@@ -3,6 +3,11 @@ import {APP_ROUTES} from '../../app.routes';
 
 export const DASHBOARD_VIEW_ROUTES: Routes = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: APP_ROUTES.PROFILE.DASHBOARD_VIEW.OVERVIEW
+  },
+  {
     path: APP_ROUTES.PROFILE.DASHBOARD_VIEW.OVERVIEW,
     loadComponent: () => import('./dashboard-page/overview/overview.component').then(m => m.OverviewComponent)
   },
@@ -19,4 +24,3 @@ export const DASHBOARD_VIEW_ROUTES: Routes = [
     loadComponent: () => import('./dashboard-page/contact-messages/contact-messages.component').then(m => m.ContactMessagesComponent)
   }
 ];
-

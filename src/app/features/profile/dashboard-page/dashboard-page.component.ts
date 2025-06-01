@@ -2,13 +2,17 @@ import {Component} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {APP_ROUTES} from '../../../app.routes';
 import {HttpClient} from '@angular/common/http';
+import {AuthService} from '../../../core/services/auth.service';
+import {User} from '../../../core/interfaces/user';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-dashboard-page',
   imports: [
     RouterLink,
     RouterLinkActive,
-    RouterOutlet
+    RouterOutlet,
+    NgIf
   ],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.css'
@@ -16,20 +20,18 @@ import {HttpClient} from '@angular/common/http';
 export class DashboardPageComponent {
 
   protected readonly APP_ROUTES = APP_ROUTES;
+  isAdmin = false;
+  currentUser: User | null = null;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.currentUser = this.authService.getCurrentUser();
+    console.log('Current user:', this.currentUser);
+    this.isAdmin = this.currentUser?.role === 'admin';
   }
 
   logout() {
-    // Implement your logout logic here (e.g., call AuthService, clear tokens, etc.)
-    // For now, just navigate to sign-in page
-    this.router.navigate(['/auth/sign-in']).then(r => {
-      // Optionally, you can add logic to clear user data or tokens here
-      console.log('Logged out successfully');
-    }).catch(error => {
-      console.error('Logout failed', error);
-      // Handle logout error (e.g., show a notification)
-
-    });
+    this.authService.signOut();
   }
 }

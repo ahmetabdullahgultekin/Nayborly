@@ -20,8 +20,13 @@ export class NavbarComponent {
   showDropdown = false;
   dropdownTimeout: any;
   APP_ROUTES = APP_ROUTES;
+  userAvatarUrl: string | null = null;
 
   constructor(private authService: AuthService) {
+    if (this.isLoggedIn() && this.authService.getCurrentUser) {
+      const user = this.authService.getCurrentUser();
+      this.userAvatarUrl = user?.avatarUrl || null;
+    }
   }
 
   toggleMenu() {

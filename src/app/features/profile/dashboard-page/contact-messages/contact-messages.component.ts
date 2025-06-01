@@ -48,4 +48,22 @@ export class ContactMessagesComponent implements OnInit {
         this.loading = false;
       });
   }
+
+  deleteMessage(msg: ContactMessage): void {
+    if (confirm(`Are you sure you want to delete this message from ${msg.name}?`)) {
+      const updatedMessages = this.messages.filter(m => m !== msg);
+      this.http.put(environment.jsonBin.bins.contactMessagesBin.url, { messages: updatedMessages }, {
+        headers: {
+          'X-Access-Key': environment.jsonBin.secret
+        }
+      }).subscribe({
+        next: () => {
+          this.messages = updatedMessages;
+        },
+        error: (err) => {
+          alert('Failed to delete message. Please try again.');
+        }
+      });
+    }
+  }
 }
