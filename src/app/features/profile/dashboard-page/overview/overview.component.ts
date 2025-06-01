@@ -5,7 +5,7 @@ import {ContactService} from '../../../../core/services/contact.service';
 import {LoadingService} from '../../../../core/services/loading.service';
 import {APP_ROUTES} from '../../../../app.routes';
 import {environment} from '../../../../../environments/environment';
-import {DatePipe, NgForOf, NgIf} from '@angular/common';
+import {NgIf} from '@angular/common';
 import {LoadingComponent} from '../../../../shared/loading/loading.component';
 import {AuthService} from '../../../../core/services/auth.service';
 import {User} from '../../../../core/interfaces/user';
@@ -22,20 +22,25 @@ import {User} from '../../../../core/interfaces/user';
   styleUrls: ['./overview.component.css']
 })
 export class OverviewComponent implements OnInit {
-  protected readonly APP_ROUTES = APP_ROUTES;
   postsCount = 0;
   usersCount = 0;
   contactMessagesCount = 0;
   isAdmin = false;
   currentUser: User | null = null;
   currentYear = new Date().getFullYear();
+  protected readonly APP_ROUTES = APP_ROUTES;
 
   constructor(
     private http: HttpClient,
     private contactService: ContactService,
     protected loadingService: LoadingService,
     private authService: AuthService
-  ) {}
+  ) {
+  }
+
+  get user() {
+    return this.currentUser;
+  }
 
   ngOnInit(): void {
     this.loadingService.show();
@@ -46,7 +51,10 @@ export class OverviewComponent implements OnInit {
       'X-Access-Key': environment.jsonBin.secret,
     });
     let completed = 0;
-    const finish = () => { completed++; if (completed === (this.isAdmin ? 3 : 1)) this.loadingService.hide(); };
+    const finish = () => {
+      completed++;
+      if (completed === (this.isAdmin ? 3 : 1)) this.loadingService.hide();
+    };
     // Fetch posts (listings)
     this.http.get<any>(environment.jsonBin.bins.listingsBin.url, {headers}).subscribe(data => {
       const posts = Array.isArray(data.record) ? data.record : [];
@@ -70,9 +78,5 @@ export class OverviewComponent implements OnInit {
         finish();
       }, finish);
     }
-  }
-
-  get user() {
-    return this.currentUser;
   }
 }

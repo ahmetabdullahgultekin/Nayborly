@@ -1,4 +1,4 @@
-import {Component, computed, signal, effect} from '@angular/core';
+import {Component, computed, effect, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CurrencyPipe, DatePipe, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
@@ -151,11 +151,6 @@ export class ListingFlowComponent {
     });
   }
 
-  // Helper to reset page to 1
-  private resetPage() {
-    this.currentPage.set(1);
-  }
-
   fetchUsers() {
     this.http.get<any>(
       environment.jsonBin.bins.usersBin.url,
@@ -214,5 +209,10 @@ export class ListingFlowComponent {
   onTagsInput(event: Event) {
     const value = ((event.target as HTMLInputElement).value || '') as string;
     this.tags.set(value.split(',').map((t: string) => t.trim()).filter((t: string) => t));
+  }
+
+  // Helper to reset page to 1
+  private resetPage() {
+    this.currentPage.set(1);
   }
 }

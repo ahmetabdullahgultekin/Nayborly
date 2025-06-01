@@ -5,8 +5,8 @@ import {environment} from '../../../../../environments/environment';
 import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {AuthService} from '../../../../core/services/auth.service';
 import {User} from '../../../../core/interfaces/user';
-import { MatDialog } from '@angular/material/dialog';
-import { EditPostDialogComponent } from './edit-post-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
+import {EditPostDialogComponent} from './edit-post-dialog.component';
 
 @Component({
   selector: 'app-dashboard-posts',
@@ -65,12 +65,12 @@ export class PostsComponent implements OnInit {
   editPost(post: Post): void {
     const dialogRef = this.dialog.open(EditPostDialogComponent, {
       width: '400px',
-      data: { ...post }
+      data: {...post}
     });
     dialogRef.afterClosed().subscribe((result: Post | undefined) => {
       if (result) {
         const updatedPosts = this.posts.map(p => p === post ? result : p);
-        this.http.put(environment.jsonBin.bins.listingsBin.url, { posts: updatedPosts }, {
+        this.http.put(environment.jsonBin.bins.listingsBin.url, {posts: updatedPosts}, {
           headers: {
             'X-Access-Key': environment.jsonBin.secret
           }
@@ -89,7 +89,7 @@ export class PostsComponent implements OnInit {
   deletePost(post: Post): void {
     if (confirm(`Are you sure you want to delete the post titled "${post.title}"?`)) {
       const updatedPosts = this.posts.filter(p => p !== post);
-      this.http.put(environment.jsonBin.bins.listingsBin.url, { posts: updatedPosts }, {
+      this.http.put(environment.jsonBin.bins.listingsBin.url, {posts: updatedPosts}, {
         headers: {
           'X-Access-Key': environment.jsonBin.secret
         }

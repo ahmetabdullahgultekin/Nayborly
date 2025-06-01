@@ -4,7 +4,7 @@ import {User} from '../../../../core/interfaces/user';
 import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {environment} from '../../../../../environments/environment';
 import {MatDialog} from '@angular/material/dialog';
-import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
+import {EditUserDialogComponent} from './edit-user-dialog/edit-user-dialog.component';
 
 @Component({
   selector: 'app-dashboard-users',
@@ -52,12 +52,12 @@ export class UsersComponent implements OnInit {
   editUser(user: User): void {
     const dialogRef = this.dialog.open(EditUserDialogComponent, {
       width: '400px',
-      data: { ...user }
+      data: {...user}
     });
     dialogRef.afterClosed().subscribe((result: User | undefined) => {
       if (result) {
         const updatedUsers = this.users.map(u => u === user ? result : u);
-        this.http.put(environment.jsonBin.bins.usersBin.url, { users: updatedUsers }, {
+        this.http.put(environment.jsonBin.bins.usersBin.url, {users: updatedUsers}, {
           headers: {
             'X-Access-Key': environment.jsonBin.secret
           }
@@ -78,7 +78,7 @@ export class UsersComponent implements OnInit {
   deleteUser(user: User): void {
     if (confirm(`Are you sure you want to delete user ${user.name}?`)) {
       const updatedUsers = this.users.filter(u => u !== user);
-      this.http.put(environment.jsonBin.bins.usersBin.url, { users: updatedUsers }, {
+      this.http.put(environment.jsonBin.bins.usersBin.url, {users: updatedUsers}, {
         headers: {
           'X-Access-Key': environment.jsonBin.secret
         }

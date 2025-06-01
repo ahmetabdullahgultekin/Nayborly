@@ -52,7 +52,7 @@ export class ContactMessagesComponent implements OnInit {
   deleteMessage(msg: ContactMessage): void {
     if (confirm(`Are you sure you want to delete this message from ${msg.name}?`)) {
       const updatedMessages = this.messages.filter(m => m !== msg);
-      this.http.put(environment.jsonBin.bins.contactMessagesBin.url, { messages: updatedMessages }, {
+      this.http.put(environment.jsonBin.bins.contactMessagesBin.url, {messages: updatedMessages}, {
         headers: {
           'X-Access-Key': environment.jsonBin.secret
         }

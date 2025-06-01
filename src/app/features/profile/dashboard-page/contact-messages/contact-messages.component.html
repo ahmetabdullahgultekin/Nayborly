@@ -24,7 +24,7 @@
       <td data-label="Message">{{ msg.message }}</td>
       <td data-label="Date">{{ msg.date || '-' }}</td>
       <td data-label="Actions">
-        <button class="action-btn delete" (click)="deleteMessage(msg)">Delete</button>
+        <button (click)="deleteMessage(msg)" class="action-btn delete">Delete</button>
       </td>
     </tr>
     </tbody>

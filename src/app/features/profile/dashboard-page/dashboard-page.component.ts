@@ -19,11 +19,12 @@ import {NgIf} from '@angular/common';
 })
 export class DashboardPageComponent {
 
-  protected readonly APP_ROUTES = APP_ROUTES;
   isAdmin = false;
   currentUser: User | null = null;
+  protected readonly APP_ROUTES = APP_ROUTES;
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {}
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {
+  }
 
   ngOnInit(): void {
     this.currentUser = this.authService.getCurrentUser();

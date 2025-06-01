@@ -22,8 +22,8 @@
         <td data-label="Status">{{ post.status }}</td>
         <td data-label="Date">{{ post.createdAt | date:'yyyy-MM-dd' }}</td>
         <td data-label="Actions">
-          <button class="action-btn edit" (click)="editPost(post)">Edit</button>
-          <button class="action-btn delete" (click)="deletePost(post)">Delete</button>
+          <button (click)="editPost(post)" class="action-btn edit">Edit</button>
+          <button (click)="deletePost(post)" class="action-btn delete">Delete</button>
         </td>
       </tr>
       </tbody>
