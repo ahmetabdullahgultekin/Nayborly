@@ -3,5 +3,5 @@ export interface ContactMessage {
   email: string;
   subject?: string;
   message: string;
-  date: string;
+  createdAt: string;
 }

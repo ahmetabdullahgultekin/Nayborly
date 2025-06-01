@@ -68,13 +68,16 @@ export class OverviewComponent implements OnInit {
     if (this.isAdmin) {
       // Fetch users
       this.http.get<any>(environment.jsonBin.bins.usersBin.url, {headers}).subscribe(data => {
-        const users = Array.isArray(data.record) ? data.record : [];
+        // Support both array and object with 'users' property
+        const users = Array.isArray(data.record) ? data.record : (data.record?.users || []);
         this.usersCount = users.length;
         finish();
       }, finish);
       // Fetch contact messages
-      this.contactService.getAllMessages().subscribe(messages => {
-        this.contactMessagesCount = messages.length;
+      this.contactService.getAllMessages().subscribe((messages: any[]) => {
+        // Debug: log messages to verify data
+        console.log('Contact messages fetched:', messages);
+        this.contactMessagesCount = Array.isArray(messages) ? messages.length : 0;
         finish();
       }, finish);
     }

@@ -16,17 +16,35 @@
       <span class="bar"></span>
       <span class="bar"></span>
     </button>
-    <nav [class.active]="menuOpen" class="navbar-links">
+    <nav [class.active]="menuOpen" class="navbar-links" style="max-height: 90vh; overflow-y: auto;">
       <ul>
         <li><a (click)="closeMenu()" [routerLink]="APP_ROUTES.INTRO.HOME">Home</a></li>
         <li><a (click)="closeMenu()" [routerLink]="APP_ROUTES.LISTINGS.LIST">Listings</a></li>
         <li><a (click)="closeMenu()" [routerLink]="APP_ROUTES.INTRO.ABOUT">About</a></li>
         <li><a (click)="closeMenu()" [routerLink]="APP_ROUTES.INTRO.CONTACT">Contact</a></li>
-        <li *ngIf="isLoggedIn()" class="mobile-only profile-link"><a (click)="closeMenu()"
-                                                                     [routerLink]="APP_ROUTES.PROFILE.PROFILE">Profile</a>
-        </li>
+        <ng-container *ngIf="isLoggedIn(); else notLoggedInMobile">
+          <li class="mobile-only profile-link">
+            <a (click)="closeMenu()" [routerLink]="APP_ROUTES.PROFILE.PROFILE">Profile</a>
+          </li>
+          <li class="mobile-only"><a (click)="closeMenu()" [routerLink]="APP_ROUTES.PROFILE.PROFILE + '/' + APP_ROUTES.PROFILE.DASHBOARD">Dashboard</a></li>
+          <li class="mobile-only"><button class="mobile-logout-btn" (click)="logout()">Log Out</button></li>
+        </ng-container>
+        <ng-template #notLoggedInMobile>
+          <li class="mobile-only"><a (click)="closeMenu()" [routerLink]="APP_ROUTES.AUTH.AUTH +'/'+ APP_ROUTES.AUTH.SIGN_IN">Sign In</a></li>
+          <li class="mobile-only"><a (click)="closeMenu()" [routerLink]="APP_ROUTES.AUTH.AUTH +'/'+ APP_ROUTES.AUTH.SIGN_UP">Sign Up</a></li>
+        </ng-template>
       </ul>
     </nav>
+    <!-- Mobile profile button -->
+    <div class="navbar-auth mobile-only">
+      <a [routerLink]="APP_ROUTES.PROFILE.PROFILE" class="navbar-profile" title="Your Profile">
+        <img *ngIf="isLoggedIn() && userAvatarUrl; else defaultAvatarMobile" [src]="userAvatarUrl" alt="Profile"
+             class="navbar-profile-img" height="38" width="38"/>
+        <ng-template #defaultAvatarMobile>
+          <img alt="Profile" class="navbar-profile-img" height="38" ngSrc="/favicon.svg" width="38"/>
+        </ng-template>
+      </a>
+    </div>
     <div (mouseenter)="onDropdownEnter()"
          (mouseleave)="onDropdownLeave()"
          class="navbar-auth desktop-only profile-dropdown">

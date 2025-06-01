@@ -57,17 +57,16 @@ export class UsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: User | undefined) => {
       if (result) {
         const updatedUsers = this.users.map(u => u === user ? result : u);
-        this.http.put(environment.jsonBin.bins.usersBin.url, {users: updatedUsers}, {
+        // Send only the array, not wrapped in {users: ...}
+        this.http.put(environment.jsonBin.bins.usersBin.url, updatedUsers, {
           headers: {
             'X-Access-Key': environment.jsonBin.secret
           }
         }).subscribe({
           next: () => {
             this.users = updatedUsers;
-            console.log('Updated user:', result);
           },
           error: (err) => {
-            console.error('Failed to update user:', err);
             alert('Failed to update user. Please try again.');
           }
         });
@@ -78,17 +77,16 @@ export class UsersComponent implements OnInit {
   deleteUser(user: User): void {
     if (confirm(`Are you sure you want to delete user ${user.name}?`)) {
       const updatedUsers = this.users.filter(u => u !== user);
-      this.http.put(environment.jsonBin.bins.usersBin.url, {users: updatedUsers}, {
+      // Send only the array, not wrapped in {users: ...}
+      this.http.put(environment.jsonBin.bins.usersBin.url, updatedUsers, {
         headers: {
           'X-Access-Key': environment.jsonBin.secret
         }
       }).subscribe({
         next: () => {
           this.users = updatedUsers;
-          console.log('Deleted user:', user);
         },
         error: (err) => {
-          console.error('Failed to delete user:', err);
           alert('Failed to delete user. Please try again.');
         }
       });

@@ -65,12 +65,16 @@ export class PostsComponent implements OnInit {
   editPost(post: Post): void {
     const dialogRef = this.dialog.open(EditPostDialogComponent, {
       width: '400px',
-      data: {...post}
+      data: { ...post }
     });
     dialogRef.afterClosed().subscribe((result: Post | undefined) => {
       if (result) {
-        const updatedPosts = this.posts.map(p => p === post ? result : p);
-        this.http.put(environment.jsonBin.bins.listingsBin.url, {posts: updatedPosts}, {
+        // Always update the full posts array, not just the edited post
+        const allPosts = this.isAdmin
+          ? this.posts
+          : [...this.posts]; // fallback for non-admin, but should be all posts for admin
+        const updatedPosts = allPosts.map(p => p.id === result.id ? result : p);
+        this.http.put(environment.jsonBin.bins.listingsBin.url, updatedPosts, {
           headers: {
             'X-Access-Key': environment.jsonBin.secret
           }
@@ -89,7 +93,7 @@ export class PostsComponent implements OnInit {
   deletePost(post: Post): void {
     if (confirm(`Are you sure you want to delete the post titled "${post.title}"?`)) {
       const updatedPosts = this.posts.filter(p => p !== post);
-      this.http.put(environment.jsonBin.bins.listingsBin.url, {posts: updatedPosts}, {
+      this.http.put(environment.jsonBin.bins.listingsBin.url, updatedPosts, {
         headers: {
           'X-Access-Key': environment.jsonBin.secret
         }

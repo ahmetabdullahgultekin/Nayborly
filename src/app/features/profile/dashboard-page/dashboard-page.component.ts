@@ -28,7 +28,6 @@ export class DashboardPageComponent {
 
   ngOnInit(): void {
     this.currentUser = this.authService.getCurrentUser();
-    console.log('Current user:', this.currentUser);
     this.isAdmin = this.currentUser?.role === 'admin';
   }
 

@@ -22,7 +22,7 @@
       <td data-label="Email">{{ msg.email }}</td>
       <td data-label="Subject">{{ msg.subject || '-' }}</td>
       <td data-label="Message">{{ msg.message }}</td>
-      <td data-label="Date">{{ msg.date || '-' }}</td>
+      <td data-label="Date">{{ msg.createdAt || '-' }}</td>
       <td data-label="Actions">
         <button (click)="deleteMessage(msg)" class="action-btn delete">Delete</button>
       </td>

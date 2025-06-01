@@ -8,13 +8,15 @@
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Status</mat-label>
     <mat-select formControlName="status" required>
-      <mat-option *ngFor="let status of statuses" [value]="status">{{ status }}</mat-option>
+      <mat-option *ngFor="let status of filteredStatuses" [value]="status">{{ status }}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Category</mat-label>
-    <input formControlName="category" matInput/>
+    <mat-select formControlName="category" required>
+      <mat-option *ngFor="let category of filteredCategories" [value]="category">{{ category }}</mat-option>
+    </mat-select>
   </mat-form-field>
 
   <div align="end" mat-dialog-actions>
@@ -22,4 +24,3 @@
     <button [disabled]="form.invalid" color="primary" mat-flat-button type="submit">Save</button>
   </div>
 </form>
-

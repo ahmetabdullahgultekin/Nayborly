@@ -231,8 +231,9 @@
     padding: 0 10px;
   }
 
+  /* Allow profile dropdown to show on mobile */
   .profile-dropdown {
-    display: none !important;
+    display: flex !important;
   }
 }
 

@@ -40,7 +40,7 @@ export class ContactMessagesComponent implements OnInit {
         // Ensure each message has a date property
         this.messages = messages.map(msg => ({
           ...msg,
-          date: msg.date || new Date().toISOString()
+          createdAt: msg.createdAt || new Date().toISOString()
         }));
         this.loading = false;
       }, () => {
@@ -52,7 +52,8 @@ export class ContactMessagesComponent implements OnInit {
   deleteMessage(msg: ContactMessage): void {
     if (confirm(`Are you sure you want to delete this message from ${msg.name}?`)) {
       const updatedMessages = this.messages.filter(m => m !== msg);
-      this.http.put(environment.jsonBin.bins.contactMessagesBin.url, {messages: updatedMessages}, {
+      // Send only the array, not wrapped in an object
+      this.http.put(environment.jsonBin.bins.contactMessagesBin.url, updatedMessages, {
         headers: {
           'X-Access-Key': environment.jsonBin.secret
         }
