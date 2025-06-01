@@ -65,7 +65,7 @@ export class PostsComponent implements OnInit {
   editPost(post: Post): void {
     const dialogRef = this.dialog.open(EditPostDialogComponent, {
       width: '400px',
-      data: { ...post }
+      data: {...post}
     });
     dialogRef.afterClosed().subscribe((result: Post | undefined) => {
       if (result) {

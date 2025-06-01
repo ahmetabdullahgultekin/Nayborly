@@ -43,7 +43,7 @@ export class ContactService {
         );
         // Remove any 'date' property and ensure 'createdAt' is present
         const cleanedMessages = messages.map((msg: any) => {
-          const { date, ...rest } = msg;
+          const {date, ...rest} = msg;
           return {
             ...rest,
             createdAt: msg.createdAt || new Date().toISOString()

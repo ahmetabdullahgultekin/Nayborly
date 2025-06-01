@@ -26,12 +26,18 @@
           <li class="mobile-only profile-link">
             <a (click)="closeMenu()" [routerLink]="APP_ROUTES.PROFILE.PROFILE">Profile</a>
           </li>
-          <li class="mobile-only"><a (click)="closeMenu()" [routerLink]="APP_ROUTES.PROFILE.PROFILE + '/' + APP_ROUTES.PROFILE.DASHBOARD">Dashboard</a></li>
-          <li class="mobile-only"><button class="mobile-logout-btn" (click)="logout()">Log Out</button></li>
+          <li class="mobile-only"><a (click)="closeMenu()"
+                                     [routerLink]="APP_ROUTES.PROFILE.PROFILE + '/' + APP_ROUTES.PROFILE.DASHBOARD">Dashboard</a>
+          </li>
+          <li class="mobile-only">
+            <button (click)="logout()" class="mobile-logout-btn">Log Out</button>
+          </li>
         </ng-container>
         <ng-template #notLoggedInMobile>
-          <li class="mobile-only"><a (click)="closeMenu()" [routerLink]="APP_ROUTES.AUTH.AUTH +'/'+ APP_ROUTES.AUTH.SIGN_IN">Sign In</a></li>
-          <li class="mobile-only"><a (click)="closeMenu()" [routerLink]="APP_ROUTES.AUTH.AUTH +'/'+ APP_ROUTES.AUTH.SIGN_UP">Sign Up</a></li>
+          <li class="mobile-only"><a (click)="closeMenu()"
+                                     [routerLink]="APP_ROUTES.AUTH.AUTH +'/'+ APP_ROUTES.AUTH.SIGN_IN">Sign In</a></li>
+          <li class="mobile-only"><a (click)="closeMenu()"
+                                     [routerLink]="APP_ROUTES.AUTH.AUTH +'/'+ APP_ROUTES.AUTH.SIGN_UP">Sign Up</a></li>
         </ng-template>
       </ul>
     </nav>

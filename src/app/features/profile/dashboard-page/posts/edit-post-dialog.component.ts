@@ -6,7 +6,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
-import {Post, ListingCategory, ListingStatus} from '../../../../core/interfaces/post';
+import {ListingCategory, ListingStatus, Post} from '../../../../core/interfaces/post';
 
 @Component({
   selector: 'app-edit-post-dialog',
@@ -31,7 +31,8 @@ export class EditPostDialogComponent {
     public dialogRef: MatDialogRef<EditPostDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Post,
     private fb: FormBuilder
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.filteredStatuses = Object.values(ListingStatus).filter(s => s !== ListingStatus.All);
