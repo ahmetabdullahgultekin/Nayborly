@@ -32,13 +32,15 @@
     </div>
     <div class="filter-group">
       <label>Min Price</label>
-      <input (input)="minPrice.set($any($event.target).valueAsNumber)" [value]="minPrice() || 0" max="10000" min="0" step="1"
+      <input (input)="minPrice.set($any($event.target).valueAsNumber)" [value]="minPrice() || 0" max="10000" min="0"
+             step="1"
              type="range"/>
       <span>{{ minPrice() || 0 }}</span>
     </div>
     <div class="filter-group">
       <label>Max Price</label>
-      <input (input)="maxPrice.set($any($event.target).valueAsNumber)" [value]="maxPrice() || 10000" max="10000" min="0" step="1"
+      <input (input)="maxPrice.set($any($event.target).valueAsNumber)" [value]="maxPrice() || 10000" max="10000" min="0"
+             step="1"
              type="range"/>
       <span>{{ maxPrice() || 10000 }}</span>
     </div>
@@ -74,8 +76,9 @@
     <div *ngIf="!loadingService.loading()" class="listings-grid">
       <div *ngFor="let item of pagedListings()" class="listing-card">
         <div class="listing-card-img-wrapper">
-          <img *ngIf="item.imageUrl; else placeholderImg" [ngSrc]="item.imageUrl" alt="Listing Image"
-               class="listing-card-img"/>
+          <ng-container *ngIf="false; else placeholderImg">
+            <img [ngSrc]="''" alt="Listing Image" class="listing-card-img"/>
+          </ng-container>
           <ng-template #placeholderImg>
             <div class="listing-card-img placeholder">No Image</div>
           </ng-template>
@@ -86,9 +89,9 @@
           <p class="listing-card-desc">{{ item.description }}</p>
           <div class="listing-card-meta">
             <span class="badge badge-category">{{ item.category || 'General' }}</span>
-            <span class="badge badge-date">{{ item.date | date:'mediumDate' }}</span>
+            <span class="badge badge-date">{{ item.createdAt | date:'mediumDate' }}</span>
           </div>
-          <div class="listing-card-extra">
+          <div class="listing-card-footer">
             <span class="listing-card-price">💰 {{ item.price | currency:'USD':'symbol':'1.0-0' }}</span>
             <span class="listing-card-rating">
               <ng-container *ngFor="let star of [1,2,3,4,5]">
@@ -100,14 +103,19 @@
               </ng-container>
               <span class="rating-value">({{ item.rating }})</span>
             </span>
-            <span *ngIf="item.city || item.state" class="listing-card-location">📍 {{ item.city }}<span
-              *ngIf="item.state">, {{ item.state }}</span></span>
+            <span *ngIf="getUserById(item.userId)?.city || getUserById(item.userId)?.state"
+                  class="listing-card-location">
+              📍 {{ getUserById(item.userId)?.city }}<span
+              *ngIf="getUserById(item.userId)?.state">, {{ getUserById(item.userId)?.state }}</span>
+            </span>
+            <span *ngIf="getUserById(item.userId)?.avatarUrl || getUserById(item.userId)?.name"
+                  class="listing-card-user">
+              <img *ngIf="getUserById(item.userId)?.avatarUrl" [src]="getUserById(item.userId)?.avatarUrl"
+                   alt="User Avatar" class="listing-card-avatar"/>
+              <span *ngIf="getUserById(item.userId)?.name">{{ getUserById(item.userId)?.name }}</span>
+            </span>
             <span *ngIf="item.tags?.length" class="listing-card-tags">
               <span *ngFor="let tag of item.tags" class="badge badge-tag">{{ tag }}</span>
-            </span>
-            <span *ngIf="item.avatarUrl || item.name" class="listing-card-user">
-              <img *ngIf="item.avatarUrl" [src]="item.avatarUrl" alt="User Avatar" class="listing-card-avatar"/>
-              <span *ngIf="item.name">{{ item.name }}</span>
             </span>
           </div>
         </div>

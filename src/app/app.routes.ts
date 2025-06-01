@@ -3,7 +3,7 @@ import {Routes} from '@angular/router';
 // Enumeration of all the routes in the app
 export const APP_ROUTES = {
   INTRO: {
-    LANDING: '',
+    HOME: '',
     ABOUT: 'about',
     CONTACT: 'contact',
   },
@@ -14,7 +14,13 @@ export const APP_ROUTES = {
   },
   PROFILE: {
     PROFILE: 'profile',
-    DASHBOARD: 'profile/dashboard',
+    DASHBOARD: 'dashboard',
+    DASHBOARD_VIEW: {
+      OVERVIEW: 'overview',
+      POSTS: 'posts',
+      USERS: 'users',
+      CONTACT_MESSAGES: 'contact-messages',
+    }
   },
   AUTH: {
     AUTH: 'auth',
@@ -49,6 +55,6 @@ export const routes: Routes = [
       import('./core/auth/auth.routes')
         .then(m => m.AUTH_ROUTES)   // <- pulls in the array above
   },
-  {path: '', redirectTo: 'listings', pathMatch: 'full'},
-  {path: '**', redirectTo: 'listings'}
+  {path: '', redirectTo: APP_ROUTES.INTRO.HOME, pathMatch: 'full'},
+  {path: '**', redirectTo: APP_ROUTES.INTRO.HOME, pathMatch: 'full'},
 ];

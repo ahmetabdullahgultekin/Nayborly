@@ -1,36 +1,44 @@
-<div class="profile-container">
+<div *ngIf="isLoggedIn(); else notSignedIn" class="profile-container">
   <div class="profile-card">
     <div class="profile-avatar">
-      <img alt="Profile Avatar" ngSrc="https://i.pravatar.cc/150?img=3"/>
+      <img *ngIf="user?.avatarUrl; else noAvatar" [ngSrc]="user?.avatarUrl ?? ''" alt="Profile Avatar" fill/>
+      <ng-template #noAvatar>
+        <div class="profile-avatar-placeholder">{{ user?.name?.charAt(0) ?? '?' }}</div>
+      </ng-template>
       <span class="profile-status online"></span>
     </div>
     <div class="profile-info">
-      <h2 class="profile-name">Jane Doe</h2>
-      <p class="profile-role">Frontend Developer</p>
-      <p class="profile-bio">
-        Passionate about building beautiful and performant web applications. Loves Angular, TypeScript, and UI/UX
-        design.
-      </p>
+      <h2 class="profile-name">{{ user?.name }}</h2>
+      <p class="profile-role">{{ user?.role || 'User' }}</p>
       <div class="profile-actions">
         <button class="btn primary">Follow</button>
         <button class="btn secondary">Message</button>
+        <button [routerLink]="APP_ROUTES.PROFILE.DASHBOARD" class="btn dashboard">Dashboard</button>
       </div>
     </div>
   </div>
   <div class="profile-details">
     <h3>About</h3>
     <ul>
-      <li><strong>Email:</strong> jane.doe&#64;example.com</li>
-      <li><strong>Location:</strong> Istanbul, Turkey</li>
-      <li><strong>Joined:</strong> January 2022</li>
+      <li><strong>Email:</strong> {{ user?.email }}</li>
+      <li><strong>Location:</strong> {{ user?.city || 'N/A' }}<span *ngIf="user?.state">, {{ user?.state }}</span></li>
+      <li><strong>Joined:</strong> {{ user?.createdAt ? (user?.createdAt | date:'mediumDate') : 'N/A' }}</li>
     </ul>
-    <h3>Skills</h3>
-    <div class="skills">
-      <span class="skill">Angular</span>
-      <span class="skill">TypeScript</span>
-      <span class="skill">SCSS</span>
-      <span class="skill">UI/UX</span>
-      <span class="skill">RxJS</span>
-    </div>
   </div>
 </div>
+<ng-template #notSignedIn>
+  <div class="profile-not-signed-in-card">
+    <div class="profile-not-signed-in-icon">
+      <svg fill="none" height="64" viewBox="0 0 64 64" width="64" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" fill="#f3f4f6" r="32"/>
+        <path
+          d="M32 36c5.523 0 10-4.477 10-10S37.523 16 32 16 22 20.477 22 26s4.477 10 10 10zm0 4c-6.627 0-20 3.314-20 10v2a2 2 0 002 2h36a2 2 0 002-2v-2c0-6.686-13.373-10-20-10z"
+          fill="#a0aec0"/>
+      </svg>
+    </div>
+    <h2 class="profile-not-signed-in-title">You are not signed in</h2>
+    <p class="profile-not-signed-in-message">Please sign in to view your profile and access personalized features.</p>
+    <a [routerLink]="['/', APP_ROUTES.AUTH.AUTH, APP_ROUTES.AUTH.SIGN_IN]"
+       class="btn primary profile-not-signed-in-btn">Sign In</a>
+  </div>
+</ng-template>

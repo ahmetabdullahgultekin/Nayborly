@@ -4,6 +4,7 @@
   min-height: 100vh;
   padding-bottom: 40px;
   animation: fadeIn 1s;
+  overflow-x: hidden;
 }
 
 .hero {
@@ -69,6 +70,10 @@
   flex-wrap: wrap;
   gap: 32px;
   justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .feature-card {
@@ -76,10 +81,13 @@
   border-radius: 1rem;
   box-shadow: 0 4px 24px rgba(60, 72, 88, 0.10);
   padding: 32px 24px;
-  width: 260px;
+  width: 100%;
+  max-width: 280px;
+  min-width: 220px;
   text-align: center;
   transition: transform 0.2s, box-shadow 0.2s;
   animation: fadeIn 1.5s;
+  box-sizing: border-box;
 }
 
 .feature-card:hover {
@@ -235,9 +243,118 @@
 }
 
 @media (max-width: 900px) {
+  .features-container {
+    gap: 18px;
+    max-width: 100%;
+  }
+
+  .feature-card {
+    max-width: 100%;
+    min-width: 0;
+    flex: 1 1 260px;
+  }
+
   .features-container, .testimonial-cards {
     flex-direction: column;
     gap: 18px;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero, .how-it-works, .cta {
+    padding: 24px 8vw 18px 8vw;
+    margin: 32px 0 24px 0;
+    border-radius: 1rem;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .features {
+    margin: 32px 0 18px 0;
+  }
+
+  .feature-card, .testimonial-card {
+    width: 90vw;
+    min-width: 0;
+    padding: 18px 8px;
+  }
+
+  .feature-title, .section-title, .cta-title {
+    font-size: 1.08rem;
+  }
+
+  .feature-icon, .testimonial-avatar {
+    font-size: 1.5rem;
+  }
+
+  .hiw-steps {
+    max-width: 100%;
+    font-size: 0.98rem;
+  }
+
+  .hiw-step-num {
+    width: 26px;
+    height: 26px;
+    font-size: 0.98rem;
+    margin-right: 8px;
+  }
+
+  .btn-primary, .btn-cta {
+    font-size: 1rem;
+    padding: 12px 24px;
+    border-radius: 0.6rem;
+  }
+
+  .testimonials {
+    margin: 32px 0 18px 0;
+  }
+
+  .testimonial-cards {
+    gap: 10px;
+  }
+
+  .cta {
+    margin: 32px 0 0 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .features-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .feature-card {
+    width: 100%;
+    max-width: 98vw;
+    min-width: 0;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero, .how-it-works, .cta {
+    padding: 12px 2vw 10px 2vw;
+    border-radius: 0.7rem;
+  }
+
+  .feature-card, .testimonial-card {
+    width: 98vw;
+    padding: 10px 2vw;
+    border-radius: 0.7rem;
+  }
+
+  .btn-primary, .btn-cta {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 0.98rem;
   }
 }
 

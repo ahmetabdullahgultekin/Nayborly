@@ -1,0 +1,131 @@
+.dashboard-users-container {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(60, 72, 88, 0.10);
+  padding: 32px 18px 18px 18px;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.dashboard-users-container h2 {
+  color: #3182ce;
+  font-size: 1.4rem;
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.dashboard-users-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #f8fafc;
+  border-radius: 0.7rem;
+  overflow: hidden;
+  font-size: 1rem;
+}
+
+.dashboard-users-table th, .dashboard-users-table td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.dashboard-users-table th {
+  background: #e0ecff;
+  color: #2563eb;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.dashboard-users-table tr:last-child td {
+  border-bottom: none;
+}
+
+.action-btn {
+  background: #38bdf8;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  margin-right: 6px;
+  font-size: 0.98rem;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.action-btn.edit {
+  background: #2563eb;
+}
+
+.action-btn.delete {
+  background: #fb7185;
+}
+
+.action-btn:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 700px) {
+  .dashboard-users-container {
+    padding: 16px 4px 8px 4px;
+    max-width: 100%;
+    border-radius: 0.5rem;
+  }
+
+  .dashboard-users-table th, .dashboard-users-table td {
+    padding: 8px 4px;
+    font-size: 0.92rem;
+  }
+
+  .dashboard-users-table {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .dashboard-users-container {
+    padding: 8px 0;
+  }
+
+  .dashboard-users-table, .dashboard-users-table thead, .dashboard-users-table tbody, .dashboard-users-table th, .dashboard-users-table td, .dashboard-users-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .dashboard-users-table thead {
+    display: none;
+  }
+
+  .dashboard-users-table tr {
+    margin-bottom: 1rem;
+    background: #f8fafc;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(60, 72, 88, 0.08);
+    padding: 8px 0;
+  }
+
+  .dashboard-users-table td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    min-height: 36px;
+    font-size: 0.98rem;
+    box-sizing: border-box;
+  }
+
+  .dashboard-users-table td:before {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    width: 45%;
+    white-space: nowrap;
+    font-weight: bold;
+    color: #2563eb;
+    content: attr(data-label);
+  }
+
+  .action-btn {
+    width: 100%;
+    margin: 4px 0;
+    font-size: 1rem;
+  }
+}

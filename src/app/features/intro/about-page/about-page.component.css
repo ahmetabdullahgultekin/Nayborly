@@ -32,10 +32,16 @@
   background: #fff;
   border-radius: 1rem;
   box-shadow: 0 4px 24px rgba(60, 72, 88, 0.10);
-  padding: 32px 24px;
-  max-width: 400px;
-  flex: 1 1 320px;
-  min-width: 260px;
+  padding: 18px 12px;
+  max-width: 320px;
+  min-width: 0;
+  flex: 1 1 180px;
+  margin: 0 auto 12px auto;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .about-mission h2, .about-vision h2 {
@@ -91,8 +97,10 @@
   background: #fff;
   border-radius: 1rem;
   box-shadow: 0 4px 24px rgba(60, 72, 88, 0.10);
-  padding: 24px 18px 18px 18px;
-  width: 220px;
+  padding: 18px 8px 14px 8px;
+  width: 100%;
+  max-width: 260px;
+  min-width: 0;
   transition: transform 0.2s, box-shadow 0.2s;
   animation: fadeIn 1.7s;
 }
@@ -178,6 +186,13 @@
   color: #2b6cb0;
 }
 
+.feature-card, .testimonial-card {
+  width: 100%;
+  max-width: 260px;
+  min-width: 0;
+  padding: 18px 8px 14px 8px;
+}
+
 @media (max-width: 900px) {
   .about-mission-vision {
     flex-direction: column;
@@ -187,6 +202,110 @@
   .team-grid {
     flex-direction: column;
     gap: 18px;
+  }
+
+  .about-hero {
+    padding: 32px 8vw 18px 8vw;
+  }
+
+  .about-hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .about-hero-content .lead {
+    font-size: 1.08rem;
+  }
+
+  .about-mission-vision {
+    flex-direction: column;
+    gap: 18px;
+    padding: 0 6vw;
+  }
+
+  .about-mission, .about-vision {
+    max-width: 98vw;
+    min-width: 0;
+    padding: 14px 4vw;
+    margin-bottom: 10px;
+    font-size: 0.98rem;
+  }
+
+  .about-values {
+    padding: 0 6vw;
+  }
+
+  .about-team {
+    padding: 0 6vw;
+  }
+
+  .team-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .team-member {
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .about-tech {
+    padding: 0 6vw;
+  }
+
+  .about-contact-cta {
+    padding: 0 6vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-hero {
+    padding: 18px 2vw 10px 2vw;
+  }
+
+  .about-hero-content h1 {
+    font-size: 1.3rem;
+  }
+
+  .about-hero-content .lead {
+    font-size: 0.98rem;
+  }
+
+  .about-mission-vision, .about-values, .about-team, .about-tech, .about-contact-cta {
+    padding: 0 2vw;
+  }
+
+  .about-mission-vision h2, .about-values h2, .about-team h2, .about-tech h2, .about-contact-cta h2 {
+    font-size: 1.08rem;
+  }
+
+  .about-mission, .about-vision {
+    max-width: 100vw;
+    padding: 10px 2vw;
+    font-size: 0.97rem;
+  }
+
+  .values-list li {
+    font-size: 0.98rem;
+  }
+
+  .team-avatar {
+    width: 56px;
+    height: 56px;
+    font-size: 1.3rem;
+  }
+
+  .team-member h3 {
+    font-size: 1.08rem;
+  }
+
+  .team-bio {
+    font-size: 0.98rem;
+  }
+
+  .tech-list li {
+    font-size: 0.98rem;
   }
 }
 

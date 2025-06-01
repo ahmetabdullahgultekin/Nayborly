@@ -8,7 +8,7 @@ export const PROFILE_ROUTES: Routes = [
   },
   {
     path: APP_ROUTES.PROFILE.DASHBOARD,
-    loadComponent: () => import('./dashboard-page/dashboard-page.component').then(m => m.DashboardPageComponent)
+    loadComponent: () => import('./dashboard-page/dashboard-page.component').then(m => m.DashboardPageComponent),
+    loadChildren: () => import('./dashboard.view.routes').then(m => m.DASHBOARD_VIEW_ROUTES)
   }
 ];
-

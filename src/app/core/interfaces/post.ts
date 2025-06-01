@@ -1,12 +1,10 @@
-import {User} from './user';
-
 export interface Post {
   id: string;
   title: string;
   description: string;
   createdAt: string;
   updatedAt: string;
-  user: User;
+  userId: string; // store user id instead of user object
   price: number;
   tags: string[];
   rating: number;
@@ -20,13 +18,14 @@ export enum ListingCategory {
   All = 'All',
   Help = 'Help',
   Items = 'Items',
-  Events = 'Events'
+  Services = 'Services',
+  Events = 'Events',
 }
 
 export enum ListingStatus {
   All = 'All',
   Open = 'Open',
-  Closed = 'Closed'
+  Closed = 'Closed',
 }
 
 export enum ListingSort {

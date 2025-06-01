@@ -15,4 +15,3 @@ export const AUTH_ROUTES: Routes = [
     loadComponent: () => import('./pages/forget-password-page/forget-password-page.component').then(m => m.ForgetPasswordPageComponent)
   }
 ];
-

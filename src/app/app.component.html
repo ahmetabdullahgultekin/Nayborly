@@ -3,11 +3,12 @@
 <!-- The router outlet is where the routed components will be displayed -->
 <!-- The navbar and footer are static components that will be displayed on all pages -->
 <section class="app-container">
-
-  <app-navbar></app-navbar>
-
-  <router-outlet></router-outlet>
-
-  <app-footer></app-footer>
-
+  <ng-container *ngIf="!isDashboardRoute(); else dashboardOnly">
+    <app-navbar></app-navbar>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </ng-container>
+  <ng-template #dashboardOnly>
+    <router-outlet></router-outlet>
+  </ng-template>
 </section>

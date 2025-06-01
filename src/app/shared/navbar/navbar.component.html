@@ -18,19 +18,36 @@
     </button>
     <nav [class.active]="menuOpen" class="navbar-links">
       <ul>
-        <li><a (click)="closeMenu()" routerLink="/">Home</a></li>
-        <li><a (click)="closeMenu()" routerLink="/listings">Listings</a></li>
-        <li><a (click)="closeMenu()" routerLink="/about">About</a></li>
-        <li><a (click)="closeMenu()" routerLink="/contact">Contact</a></li>
-        <li class="desktop-only"><a (click)="closeMenu()" routerLink="/auth/sign-in">Login</a></li>
-        <li class="desktop-only"><a (click)="closeMenu()" routerLink="/auth/sign-up">Sign Up</a></li>
-        <li class="mobile-only profile-link"><a (click)="closeMenu()" routerLink="/profile">Profile</a></li>
+        <li><a (click)="closeMenu()" [routerLink]="APP_ROUTES.INTRO.HOME">Home</a></li>
+        <li><a (click)="closeMenu()" [routerLink]="APP_ROUTES.LISTINGS.LIST">Listings</a></li>
+        <li><a (click)="closeMenu()" [routerLink]="APP_ROUTES.INTRO.ABOUT">About</a></li>
+        <li><a (click)="closeMenu()" [routerLink]="APP_ROUTES.INTRO.CONTACT">Contact</a></li>
+        <li *ngIf="isLoggedIn()" class="mobile-only profile-link"><a (click)="closeMenu()"
+                                                                     [routerLink]="APP_ROUTES.PROFILE.PROFILE">Profile</a>
+        </li>
       </ul>
     </nav>
-    <div class="navbar-auth desktop-only">
-      <a class="navbar-profile" routerLink="/profile" title="Your Profile">
-        <img alt="Profile" class="navbar-profile-img" src="/favicon.svg"/>
+    <div (mouseenter)="onDropdownEnter()"
+         (mouseleave)="onDropdownLeave()"
+         class="navbar-auth desktop-only profile-dropdown">
+      <a [routerLink]="APP_ROUTES.PROFILE.PROFILE" class="navbar-profile" title="Your Profile">
+        <img alt="Profile" class="navbar-profile-img" height="60" ngSrc="/favicon.svg" width="230"/>
       </a>
+      <ul (mouseenter)="onDropdownEnter()" (mouseleave)="onDropdownLeave()" [class.open]="showDropdown"
+          class="dropdown-menu">
+        <li><a (click)="closeMenu()" [routerLink]="APP_ROUTES.PROFILE.PROFILE">Profile</a></li>
+        <ng-container *ngIf="isLoggedIn()">
+          <li><a (click)="closeMenu()" [routerLink]="APP_ROUTES.PROFILE.PROFILE + '/' + APP_ROUTES.PROFILE.DASHBOARD">Dashboard</a>
+          </li>
+          <li><a (click)="logout()">Log Out</a></li>
+        </ng-container>
+        <ng-container *ngIf="!isLoggedIn()">
+          <li><a (click)="closeMenu()" [routerLink]="APP_ROUTES.AUTH.AUTH +'/'+ APP_ROUTES.AUTH.SIGN_IN">Sign In</a>
+          </li>
+          <li><a (click)="closeMenu()" [routerLink]="APP_ROUTES.AUTH.AUTH +'/'+ APP_ROUTES.AUTH.SIGN_UP">Sign Up</a>
+          </li>
+        </ng-container>
+      </ul>
     </div>
   </div>
 </header>

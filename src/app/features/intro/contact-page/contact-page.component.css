@@ -26,6 +26,10 @@
   justify-content: center;
   margin: 40px 0 24px 0;
   align-items: flex-start;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .contact-info {
@@ -33,6 +37,10 @@
   flex-direction: column;
   gap: 28px;
   min-width: 220px;
+  width: 100%;
+  max-width: 420px;
+  min-width: 0;
+  box-sizing: border-box;
   animation: fadeIn 1.2s;
 }
 
@@ -84,6 +92,9 @@
   min-width: 320px;
   max-width: 400px;
   width: 100%;
+  max-width: 420px;
+  min-width: 0;
+  box-sizing: border-box;
   animation: slideInUp 1.2s;
 }
 
@@ -183,8 +194,81 @@ input:focus, textarea:focus {
 
   .contact-form-card, .contact-info {
     min-width: 0;
-    max-width: 100%;
+    max-width: 98vw;
     width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-hero {
+    padding: 28px 0 18px 0;
+  }
+
+  .contact-hero-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .contact-hero-content .lead {
+    font-size: 1rem;
+  }
+
+  .contact-main {
+    margin: 18px 0 10px 0;
+    gap: 12px;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .contact-info {
+    gap: 14px;
+    min-width: 0;
+    padding: 0 2vw;
+    max-width: 100vw;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .contact-info-item {
+    padding: 12px 10px;
+    min-width: 0;
+    font-size: 0.98rem;
+  }
+
+  .contact-form-card {
+    padding: 16px 6vw 12px 6vw;
+    min-width: 0;
+    max-width: 100vw;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .contact-form-card h2 {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+  }
+
+  .form-row {
+    margin-bottom: 10px;
+  }
+
+  .contact-social {
+    margin: 24px 0 14px 0;
+  }
+
+  .contact-social h2 {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .contact-social-icons {
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .social-icon {
+    font-size: 1.3rem;
+    width: 36px;
+    height: 36px;
   }
 }
 
@@ -249,4 +333,3 @@ input:focus, textarea:focus {
     transform: translateY(-8px);
   }
 }
-

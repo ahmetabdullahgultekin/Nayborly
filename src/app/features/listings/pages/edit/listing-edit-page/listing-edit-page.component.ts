@@ -5,6 +5,7 @@ import {Router, RouterModule} from '@angular/router';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {environment} from '../../../../../../environments/environment';
 import {EditPostComponent} from '../component/edit-post/edit-post.component';
+import {Post} from '../../../../../core/interfaces/post';
 
 @Component({
   selector: 'app-listing-edit-page',
@@ -13,7 +14,21 @@ import {EditPostComponent} from '../component/edit-post/edit-post.component';
   templateUrl: './listing-edit-page.component.html',
 })
 export class ListingEditPageComponent {
-  model: any = {title: '', description: ''};
+  model: Post = {
+    id: '',
+    title: '',
+    description: '',
+    createdAt: '',
+    updatedAt: '',
+    userId: '',
+    price: 0,
+    tags: [],
+    rating: 0,
+    views: 0,
+    location: '',
+    category: undefined as any,
+    status: undefined as any
+  };
   private http = inject(HttpClient);
   private router = inject(Router);
 
@@ -25,7 +40,7 @@ export class ListingEditPageComponent {
     ).subscribe(data => {
       const listings = data.record.listings || [];
       // 2. Update the item in the array
-      const idx = listings.findIndex((l: any) => l.id === this.model.id);
+      const idx = listings.findIndex((l: Post) => l.id === this.model.id);
       if (idx !== -1) listings[idx] = this.model;
       // 3. PUT the whole updated array back
       this.http.put(

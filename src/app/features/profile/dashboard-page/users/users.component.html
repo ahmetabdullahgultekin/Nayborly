@@ -1,0 +1,33 @@
+<div class="dashboard-users-container">
+  <h2>Users</h2>
+  <table class="dashboard-users-table">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Status</th>
+      <th>Joined</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngIf="loading">
+      <td colspan="6" style="text-align:center; padding: 2rem;">
+        <span class="loading-spinner"></span> Loading users...
+      </td>
+    </tr>
+    <tr *ngFor="let user of users">
+      <td data-label="Name">{{ user.name }}</td>
+      <td data-label="Email">{{ user.email }}</td>
+      <td data-label="Role">{{ user.role || 'User' }}</td>
+      <td data-label="Status">{{ user.lastLogin ? 'Active' : 'Inactive' }}</td>
+      <td data-label="Joined">{{ user.createdAt | date:'yyyy-MM-dd' }}</td>
+      <td data-label="Actions">
+        <button class="action-btn edit">Edit</button>
+        <button class="action-btn delete">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

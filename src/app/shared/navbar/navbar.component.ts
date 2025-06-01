@@ -1,19 +1,28 @@
 import {Component} from '@angular/core';
 import {RouterLink} from '@angular/router';
-import {NgOptimizedImage} from '@angular/common';
+import {NgIf, NgOptimizedImage} from '@angular/common';
+import {APP_ROUTES} from '../../app.routes';
+import {AuthService} from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [
     RouterLink,
-    NgOptimizedImage
+    NgOptimizedImage,
+    NgIf
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
   menuOpen = false;
+  showDropdown = false;
+  dropdownTimeout: any;
+  APP_ROUTES = APP_ROUTES;
+
+  constructor(private authService: AuthService) {
+  }
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
@@ -21,5 +30,26 @@ export class NavbarComponent {
 
   closeMenu() {
     this.menuOpen = false;
+  }
+
+  onDropdownEnter() {
+    if (this.dropdownTimeout) {
+      clearTimeout(this.dropdownTimeout);
+    }
+    this.showDropdown = true;
+  }
+
+  onDropdownLeave() {
+    this.dropdownTimeout = setTimeout(() => {
+      this.showDropdown = false;
+    }, 200); // 200ms delay to allow mouse to move
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isAuthenticated();
+  }
+
+  logout() {
+    this.authService.signOut();
   }
 }

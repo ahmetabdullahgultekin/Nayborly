@@ -1,0 +1,29 @@
+<div class="contact-messages-container">
+  <h2>Contact Messages</h2>
+  <table class="contact-messages-table">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Subject</th>
+      <th>Message</th>
+      <th>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngIf="loading">
+      <td colspan="5" style="text-align:center; padding: 2rem;">
+        <span class="loading-spinner"></span> Loading messages...
+      </td>
+    </tr>
+    <tr *ngFor="let msg of messages">
+      <td data-label="Name">{{ msg.name }}</td>
+      <td data-label="Email">{{ msg.email }}</td>
+      <td data-label="Subject">{{ msg.subject || '-' }}</td>
+      <td data-label="Message">{{ msg.message }}</td>
+      <td data-label="Date">{{ msg.date || '-' }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

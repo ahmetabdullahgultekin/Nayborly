@@ -1,4 +1,4 @@
-import {Component, computed, inject, signal} from '@angular/core';
+import {Component, computed, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CurrencyPipe, DatePipe, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
@@ -6,7 +6,8 @@ import {environment} from '../../../../../../../environments/environment';
 import {LoadingComponent} from '../../../../../../shared/loading/loading.component';
 import {LoadingService} from '../../../../../../core/services/loading.service';
 import {SnackbarService, SnackbarType} from '../../../../../../core/services/snackbar.service';
-import {ListingCategory, ListingSort, ListingStatus} from '../../../../../../core/interfaces/post';
+import {ListingCategory, ListingSort, ListingStatus, Post} from '../../../../../../core/interfaces/post';
+import {User} from '../../../../../../core/interfaces/user';
 
 @Component({
   selector: 'app-listing-flow',
@@ -24,7 +25,7 @@ import {ListingCategory, ListingSort, ListingStatus} from '../../../../../../cor
   styleUrl: './listing-flow.component.css'
 })
 export class ListingFlowComponent {
-  listings = signal<any[]>([]);
+  listings = signal<Post[]>([]);
   search = signal('');
   category = signal<ListingCategory>(ListingCategory.All);
   status = signal<ListingStatus>(ListingStatus.All);
@@ -45,7 +46,6 @@ export class ListingFlowComponent {
   // Pagination properties
   currentPage = signal(1);
   pageSize = signal(6);
-  totalPages = computed(() => Math.ceil(this.totalListings() / this.pageSize()));
   filteredListings = computed(() => {
     let filtered = this.listings();
     const search = this.search().toLowerCase();
@@ -102,15 +102,17 @@ export class ListingFlowComponent {
     return filtered;
   });
   totalListings = computed(() => this.filteredListings().length);
+  totalPages = computed(() => Math.ceil(this.totalListings() / this.pageSize()));
   pagedListings = computed(() => {
     const start = (this.currentPage() - 1) * this.pageSize();
     return this.filteredListings().slice(start, start + this.pageSize());
   });
-  private http = inject(HttpClient);
+  userMap: Record<string, User> = {};
 
   constructor(
     protected loadingService: LoadingService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private http: HttpClient
   ) {
     this.loadingService.show();
     this.http.get<any>(
@@ -119,7 +121,7 @@ export class ListingFlowComponent {
     ).subscribe(
       data => {
         // Ensure all posts have a valid rating and price, and reset pagination on new data
-        const listingsWithDefaults = (Array.isArray(data.record) ? data.record : []).map((item: any, idx: number) => ({
+        const listingsWithDefaults = (Array.isArray(data.record) ? data.record : []).map((item: Post, idx: number) => ({
           ...item,
           price: typeof item.price === 'number' ? item.price : 100 + idx * 10,
           rating: typeof item.rating === 'number' ? item.rating : (idx % 5 + 1) - (idx % 2 === 0 ? 0.5 : 0)
@@ -128,6 +130,8 @@ export class ListingFlowComponent {
         this.currentPage.set(1); // Reset to first page on new data
         this.snackbarService.show('Listings loaded successfully', SnackbarType.Success);
         this.loadingService.hide();
+        // Fetch users after listings
+        this.fetchUsers();
       },
       error => {
         this.snackbarService.show('Failed to load listings', SnackbarType.Error);
@@ -135,6 +139,21 @@ export class ListingFlowComponent {
         this.loadingService.hide();
       }
     );
+  }
+
+  fetchUsers() {
+    this.http.get<any>(environment.jsonBin.bins.usersBin.url, {headers: {'X-Access-Key': environment.jsonBin.secret}})
+      .subscribe(data => {
+        const users: User[] = Array.isArray(data.record) ? data.record : (data.record?.users || []);
+        this.userMap = users.reduce((acc, user) => {
+          acc[user.id] = user;
+          return acc;
+        }, {} as Record<string, User>);
+      });
+  }
+
+  getUserById(userId: string): User | undefined {
+    return this.userMap[userId];
   }
 
   prevPage() {

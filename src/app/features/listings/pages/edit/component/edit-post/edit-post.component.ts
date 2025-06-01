@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {Router} from '@angular/router';
 import {LoadingComponent} from '../../../../../../shared/loading/loading.component';
 import {LoadingService} from '../../../../../../core/services/loading.service';
+import {ListingCategory, ListingStatus} from '../../../../../../core/interfaces/post';
 
 @Component({
   selector: 'app-edit-post',
@@ -23,8 +24,8 @@ export class EditPostComponent {
   success: string | null = null;
   error: string | null = null;
   imageUrl: string | null = null;
-  categories = ['Help', 'Items', 'Events'];
-  statuses = ['Open', 'Closed'];
+  categories = Object.values(ListingCategory);
+  statuses = Object.values(ListingStatus);
 
   constructor(private fb: FormBuilder, private router: Router, protected loadingService: LoadingService) {
     this.editForm = this.fb.group({
