@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef, MatDialogTitle} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgForOf} from '@angular/common';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -18,7 +18,8 @@ import {ListingCategory, ListingStatus, Post} from '../../../../core/interfaces/
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    NgForOf
+    NgForOf,
+    MatDialogTitle
   ],
   styleUrls: ['./edit-post-dialog.component.css']
 })

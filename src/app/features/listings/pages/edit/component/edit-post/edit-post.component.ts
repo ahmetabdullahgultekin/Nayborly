@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {LoadingComponent} from '../../../../../../shared/loading/loading.component';
 import {LoadingService} from '../../../../../../core/services/loading.service';
 import {ListingCategory, ListingStatus} from '../../../../../../core/interfaces/post';
+import {APP_ROUTES} from '../../../../../../app.routes';
+import {ListingsService} from '../../../../data-access/listings.service';
 
 @Component({
   selector: 'app-edit-post',
@@ -24,17 +26,24 @@ export class EditPostComponent {
   success: string | null = null;
   error: string | null = null;
   imageUrl: string | null = null;
+  id: string = '';
   categories = Object.values(ListingCategory);
   statuses = Object.values(ListingStatus);
 
-  constructor(private fb: FormBuilder, private router: Router, protected loadingService: LoadingService) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    protected loadingService: LoadingService,
+    private listingsService: ListingsService
+  ) {
     this.editForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
       category: ['', Validators.required],
       status: ['Open', Validators.required],
       tags: [''],
-      image: [null]
+      image: [null],
+      imageUrl: ['https://images.unsplash.com/photo-1506744038136-46273834b3fb', Validators.required]
     });
   }
 
@@ -77,16 +86,27 @@ export class EditPostComponent {
       return;
     }
     this.loading = true;
-    // Simulate API call
-    setTimeout(() => {
-      this.loading = false;
-      this.success = 'Listing updated successfully!';
-      setTimeout(() => this.router.navigate(['/listings']), 1500);
-    }, 1200);
+    const updatedPost = this.editForm.value;
+    this.listingsService.updateListingInBin({...updatedPost, id: this.id}).subscribe({
+      next: () => {
+        this.loading = false;
+        this.success = 'Listing updated successfully!';
+        setTimeout(() => this.router.navigate(['/listings']), 1500);
+      },
+      error: (err: any) => {
+        this.loading = false;
+        this.error = 'Failed to update listing.';
+        console.error('Update error:', err);
+      }
+    });
   }
 
   onCancel() {
-    this.router.navigate(['/listings']);
+    this.router.navigate([APP_ROUTES.LISTINGS.LIST]).then(r => {
+      if (r) {
+        this.success = 'Changes discarded.';
+      }
+    });
   }
 
   onDelete() {

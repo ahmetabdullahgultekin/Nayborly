@@ -39,7 +39,7 @@ export class ViewPostComponent {
         const listings = Array.isArray(data?.record) ? data.record : [];
         const found = listings.find((item: any) => item.id === id);
         if (!found) {
-          this.snackbar.show('Listing not found.', SnackbarType.Error);
+          this.snackbar.show('Edit your new listing.', SnackbarType.Warning);
         }
         this.listing.set(found || null);
         loading.hide();
